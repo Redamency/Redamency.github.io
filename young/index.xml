@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Hugo</title>
-    <link>https://example.com/</link>
-    <description>Recent content on Hugo</description>
+    <title>Youngs on Hugo</title>
+    <link>https://example.com/young/</link>
+    <description>Recent content in Youngs on Hugo</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="https://example.com/young/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title></title>
       <link>https://example.com/young/young/</link>
