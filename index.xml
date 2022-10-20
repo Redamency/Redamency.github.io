@@ -13,7 +13,7 @@
       <pubDate>Sun, 16 Oct 2022 09:45:57 +0800</pubDate>
       
       <guid>https://redamency.github.io/post/algorithms/</guid>
-      <description>图论 🔗染色体法 886. 可能的二分法 🔗class Solution { public boolean possibleBipartition(int n, int[][] dislikes) { // 求二分图 int m = dislikes.length; List&amp;lt;Integer&amp;gt;[] lists = new List[n]; for(int i = 0; i &amp;lt; n; i++){ lists[i] = new ArrayList&amp;lt;&amp;gt;(); } for(int i = 0; i &amp;lt; m; i++){ // 建图 lists[dislikes[i][0] - 1].add(dislikes[i][1]</description>
+      <description>图论 🔗位运算 🔗计算二进制数中1的位数 n &amp;amp; n-1 //将n的最后一位1变为0 染色体法 886. 可能的二分法 🔗class Solution { public boolean possibleBipartition(int n, int[][] dislikes) { // 求二分图 int m = dislikes.length; List&amp;lt;Integer&amp;gt;[]</description>
     </item>
     
     <item>
