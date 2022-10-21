@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en-us">
   <head>
-    <title>Young</title>
+    <title>以太网交换机的自学习算法 | Young</title>
 
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
 <meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="My Blog">
+<meta name="description" content="以太网交换机工作在数据链路层（多接口的网桥） 交换机是一种即插即用设备，其内部的帧交换表是通过自学习算法自动地逐渐建立起来地 交换机收到数据帧后">
 <meta name="generator" content="Hugo 0.82.0" />
 
 
@@ -60,55 +60,84 @@ if (!doNotTrack) {
     <main class="main">
       
 
-<div id="page-404">
-  <div class="text">
-      
-          <h1>404 - Page Not Found</h1>
-      
+<section id="single">
+    <h1 class="title">以太网交换机的自学习算法</h1>
 
-      
-          <div>The content you&#39;re looking for doesn&#39;t seem to exist.</div>
-      
+    <div class="tip">
+        <time datetime="2022-10-21 19:11:39 &#43;0800 CST">Oct 21, 2022</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          283 words
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          1 minute read
+        </span>
     </div>
 
-  
-      <h2 class="read-more">Read more</h2> 
+    
+    
+        
   
 
-  
-
 
     
+
+
+    <div class="content">
+      <p>以太网交换机工作在数据链路层（多接口的网桥）</p>
+<p>交换机是一种即插即用设备，其内部的帧交换表是通过自学习算法自动地逐渐建立起来地</p>
+<p>交换机收到数据帧后，根据帧的<strong>目的MAC地址</strong>和交换机内部的交换表对帧进行处理</p>
+<ul>
+<li>明确的转发：交换机知道应当从哪个/哪些接口转发该帧（单播、多播、广播），即交换表有相应的记录</li>
+<li>盲目的转发（泛洪法）：交换机不知道从哪个端口转发帧，即交换表没有相应的记录，只能将其通过除进入交换机的接口外其他接口转发</li>
+<li>丢弃：交换机知道不应该转发该帧，将其丢弃</li>
+</ul>
+<p>帧交换表中每个条目都有自己地有效时间，到期删除（应对下列实际情况）</p>
+<ul>
+<li>交换机的接口更换另一台主机</li>
+<li>主机更换网络适配器（网卡）</li>
+</ul>
+<p><p class="markdown-image">
+  <img src="../../static%5cimages%5cswitch-self-learning.png" alt=""  />
+</p></p>
+
+    </div>
+
     
     
-        
-        
-        <section class="item">
-          <div>
-            <h1 class="title"><a href='/post/%E4%BB%A5%E5%A4%AA%E7%BD%91%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%9A%84%E8%87%AA%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/'>以太网交换机的自学习算法</a></h1>   
-            <div class="date">Oct 21, 2022</div>
-          </div>
-        </section>
     
-        
-        
-        <section class="item">
-          <div>
-            <h1 class="title"><a href='/post/algorithms/'>Algorithms</a></h1>   
-            <div class="date">Oct 16, 2022</div>
-          </div>
-        </section>
+  <div id="comment">
     
-        
-        
-        <section class="item">
-          <div>
-            <h1 class="title"><a href='/post/young/'>Young</a></h1>   
-            <div class="date">Oct 14, 2022</div>
-          </div>
-        </section>
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
     
-</div>
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "your-disqus-shortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+  </div>
+
+
+</section>
+
 
     </main>
     
