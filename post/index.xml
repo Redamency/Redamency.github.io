@@ -17,21 +17,21 @@
     </item>
     
     <item>
-      <title>Algorithms</title>
-      <link>https://redamency.github.io/post/algorithms/</link>
-      <pubDate>Sun, 16 Oct 2022 09:45:57 +0800</pubDate>
-      
-      <guid>https://redamency.github.io/post/algorithms/</guid>
-      <description>图论 🔗位运算 🔗计算二进制数中1的位数 n &amp;amp; n-1 //将n的最后一位1变为0 染色体法 886. 可能的二分法 🔗class Solution { public boolean possibleBipartition(int n, int[][] dislikes) { // 求二分图 int m = dislikes.length; List&amp;lt;Integer&amp;gt;[]</description>
-    </item>
-    
-    <item>
       <title>Young</title>
       <link>https://redamency.github.io/post/young/</link>
       <pubDate>Fri, 14 Oct 2022 15:05:44 +0800</pubDate>
       
       <guid>https://redamency.github.io/post/young/</guid>
       <description>Young Or 杨家靖</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://redamency.github.io/post/algorithms/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://redamency.github.io/post/algorithms/</guid>
+      <description>title: &amp;ldquo;Algorithms&amp;rdquo; date: 2022-10-16T09:45:57+08:00 draft: true Kadane算法 🔗用于求最大的子数组和 算法描述：遍历数组，遍历过程中，将遍历到的元素依次累加起来（前缀和），当累加结果小于或等于</description>
     </item>
     
   </channel>

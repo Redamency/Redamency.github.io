@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en-us">
   <head>
-    <title>Algorithms | Young</title>
+    <title>Young</title>
 
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
 <meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="图论 🔗位运算 🔗计算二进制数中1的位数 n &amp; n-1 //将n的最后一位1变为0 染色体法 886. 可能的二分法 🔗class Solution { public boolean possibleBipartition(int n, int[][] dislikes) { // 求二分图 int m = dislikes.length; List&lt;Integer&gt;[]">
+<meta name="description" content="title: &ldquo;Algorithms&rdquo; date: 2022-10-16T09:45:57&#43;08:00 draft: true Kadane算法 🔗用于求最大的子数组和 算法描述：遍历数组，遍历过程中，将遍历到的元素依次累加起来（前缀和），当累加结果小于或等于">
 <meta name="generator" content="Hugo 0.82.0" />
 
 
@@ -61,15 +61,15 @@ if (!doNotTrack) {
       
 
 <section id="single">
-    <h1 class="title">Algorithms</h1>
+    <h1 class="title"></h1>
 
     <div class="tip">
-        <time datetime="2022-10-16 09:45:57 &#43;0800 CST">Oct 16, 2022</time>
+        <time datetime="0001-01-01 00:00:00 &#43;0000 UTC">Jan 1, 0001</time>
         <span class="split">
           ·
         </span>
         <span>
-          209 words
+          322 words
         </span>
         <span class="split">
           ·
@@ -90,7 +90,6 @@ if (!doNotTrack) {
           <div>
               <nav id="TableOfContents">
   <ul>
-    <li><a href="#位运算">位运算</a></li>
     <li><a href="#染色体法-886-可能的二分法-httpsleetcodecnproblemspossible-bipartition">染色体法 <a href="https://leetcode.cn/problems/possible-bipartition/">886. 可能的二分法 </a></a></li>
   </ul>
 </nav>
@@ -104,9 +103,15 @@ if (!doNotTrack) {
 
 
     <div class="content">
-      <h1 id="图论">图论 <a href="#%e5%9b%be%e8%ae%ba" class="anchor">🔗</a></h1><h2 id="位运算">位运算 <a href="#%e4%bd%8d%e8%bf%90%e7%ae%97" class="anchor">🔗</a></h2><p>计算二进制数中1的位数</p>
+      <p>title: &ldquo;Algorithms&rdquo;
+date: 2022-10-16T09:45:57+08:00
+draft: true</p>
+<h1 id="kadane算法">Kadane算法 <a href="#kadane%e7%ae%97%e6%b3%95" class="anchor">🔗</a></h1><p>用于求最大的子数组和</p>
+<p>算法描述：遍历数组，遍历过程中，将遍历到的元素依次累加起来（前缀和），当累加结果小于或等于0时，从下一个元素开始，重新开始累加。（该算法基于dp）</p>
+<p>类似于dp，优化了空间复杂度。</p>
+<h1 id="位运算">位运算 <a href="#%e4%bd%8d%e8%bf%90%e7%ae%97" class="anchor">🔗</a></h1><p>计算二进制数中1的位数</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">n <span style="color:#666">&amp;</span> n<span style="color:#666">-</span>1 	<span style="color:#080;font-style:italic">//将n的最后一位1变为0
-</span></code></pre></div>染色体法 <h2 id="染色体法-886-可能的二分法-httpsleetcodecnproblemspossible-bipartition"><a href="https://leetcode.cn/problems/possible-bipartition/" target="_blank" rel="noopener">886. 可能的二分法 </a> <a href="#%e6%9f%93%e8%89%b2%e4%bd%93%e6%b3%95-886-%e5%8f%af%e8%83%bd%e7%9a%84%e4%ba%8c%e5%88%86%e6%b3%95-httpsleetcodecnproblemspossible-bipartition" class="anchor">🔗</a></h2><div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a2f;font-weight:bold">class</span> <span style="color:#00f">Solution</span> <span style="color:#666">{</span>
+</span></code></pre></div><h1 id="图论">图论 <a href="#%e5%9b%be%e8%ae%ba" class="anchor">🔗</a></h1>染色体法 <h2 id="染色体法-886-可能的二分法-httpsleetcodecnproblemspossible-bipartition"><a href="https://leetcode.cn/problems/possible-bipartition/" target="_blank" rel="noopener">886. 可能的二分法 </a> <a href="#%e6%9f%93%e8%89%b2%e4%bd%93%e6%b3%95-886-%e5%8f%af%e8%83%bd%e7%9a%84%e4%ba%8c%e5%88%86%e6%b3%95-httpsleetcodecnproblemspossible-bipartition" class="anchor">🔗</a></h2><div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a2f;font-weight:bold">class</span> <span style="color:#00f">Solution</span> <span style="color:#666">{</span>
     <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#0b0;font-weight:bold">boolean</span> <span style="color:#00a000">possibleBipartition</span><span style="color:#666">(</span><span style="color:#0b0;font-weight:bold">int</span> n<span style="color:#666">,</span> <span style="color:#0b0;font-weight:bold">int</span><span style="color:#666">[][]</span> dislikes<span style="color:#666">)</span> <span style="color:#666">{</span>	<span style="color:#080;font-style:italic">// 求二分图
 </span><span style="color:#080;font-style:italic"></span>        <span style="color:#0b0;font-weight:bold">int</span> m <span style="color:#666">=</span> dislikes<span style="color:#666">.</span><span style="color:#b44">length</span><span style="color:#666">;</span>
         List<span style="color:#666">&lt;</span>Integer<span style="color:#666">&gt;[]</span> lists <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> List<span style="color:#666">[</span>n<span style="color:#666">];</span>
