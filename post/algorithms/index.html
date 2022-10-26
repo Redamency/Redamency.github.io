@@ -6,7 +6,7 @@
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
 <meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="Kadane算法 🔗用于求最大的子数组和 算法描述：遍历数组，遍历过程中，将遍历到的元素依次累加起来（前缀和），当累加结果小于或等于0时，从下一">
+<meta name="description" content="Algorithms 🔗Kadane算法 🔗53.最大子数组 918.最大循环子数组 用于求最大的子数组和 算法描述：遍历数组，遍历过程中，将遍历到的元素依次累加起来（">
 <meta name="generator" content="Hugo 0.82.0" />
 
 
@@ -69,7 +69,7 @@ if (!doNotTrack) {
           ·
         </span>
         <span>
-          316 words
+          496 words
         </span>
         <span class="split">
           ·
@@ -90,7 +90,14 @@ if (!doNotTrack) {
           <div>
               <nav id="TableOfContents">
   <ul>
-    <li><a href="#染色体法-886-可能的二分法-httpsleetcodecnproblemspossible-bipartition">染色体法 <a href="https://leetcode.cn/problems/possible-bipartition/">886. 可能的二分法 </a></a></li>
+    <li><a href="#kadane算法">Kadane算法</a></li>
+    <li><a href="#位运算">位运算</a></li>
+    <li><a href="#图论">图论</a>
+      <ul>
+        <li><a href="#前缀和单调队列862和至少为k的最短子数组862-和至少为-k-的最短子数组---力扣leetcodehttpsleetcodecnproblemsshortest-subarray-with-sum-at-least-k">前缀和+单调队列[862.和至少为k的最短子数组](<a href="https://leetcode.cn/problems/shortest-subarray-with-sum-at-least-k/">862. 和至少为 K 的最短子数组 - 力扣（LeetCode）</a>)</a></li>
+        <li><a href="#染色体法-886-可能的二分法-httpsleetcodecnproblemspossible-bipartition">染色体法 <a href="https://leetcode.cn/problems/possible-bipartition/">886. 可能的二分法 </a></a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
           </div>
@@ -103,12 +110,39 @@ if (!doNotTrack) {
 
 
     <div class="content">
-      <h1 id="kadane算法">Kadane算法 <a href="#kadane%e7%ae%97%e6%b3%95" class="anchor">🔗</a></h1><p>用于求最大的子数组和</p>
+      <h1 id="algorithms">Algorithms <a href="#algorithms" class="anchor">🔗</a></h1><h2 id="kadane算法">Kadane算法 <a href="#kadane%e7%ae%97%e6%b3%95" class="anchor">🔗</a></h2><p><a href="https://leetcode.cn/problems/maximum-subarray/" target="_blank" rel="noopener">53.最大子数组</a></p>
+<p><a href="https://leetcode.cn/problems/maximum-sum-circular-subarray/" target="_blank" rel="noopener">918.最大循环子数组</a></p>
+<p>用于求最大的子数组和</p>
 <p>算法描述：遍历数组，遍历过程中，将遍历到的元素依次累加起来（前缀和），当累加结果小于或等于0时，从下一个元素开始，重新开始累加。（该算法基于dp）</p>
 <p>类似于dp，优化了空间复杂度。</p>
-<h1 id="位运算">位运算 <a href="#%e4%bd%8d%e8%bf%90%e7%ae%97" class="anchor">🔗</a></h1><p>计算二进制数中1的位数</p>
+<h2 id="位运算">位运算 <a href="#%e4%bd%8d%e8%bf%90%e7%ae%97" class="anchor">🔗</a></h2><p>计算二进制数中1的位数</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">n <span style="color:#666">&amp;</span> n<span style="color:#666">-</span>1 	<span style="color:#080;font-style:italic">//将n的最后一位1变为0
-</span></code></pre></div><h1 id="图论">图论 <a href="#%e5%9b%be%e8%ae%ba" class="anchor">🔗</a></h1>染色体法 <h2 id="染色体法-886-可能的二分法-httpsleetcodecnproblemspossible-bipartition"><a href="https://leetcode.cn/problems/possible-bipartition/" target="_blank" rel="noopener">886. 可能的二分法 </a> <a href="#%e6%9f%93%e8%89%b2%e4%bd%93%e6%b3%95-886-%e5%8f%af%e8%83%bd%e7%9a%84%e4%ba%8c%e5%88%86%e6%b3%95-httpsleetcodecnproblemspossible-bipartition" class="anchor">🔗</a></h2><div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a2f;font-weight:bold">class</span> <span style="color:#00f">Solution</span> <span style="color:#666">{</span>
+</span></code></pre></div><h2 id="图论">图论 <a href="#%e5%9b%be%e8%ae%ba" class="anchor">🔗</a></h2>前缀和+单调队列[862.和至少为k的最短子数组](<h3 id="前缀和单调队列862和至少为k的最短子数组862-和至少为-k-的最短子数组---力扣leetcodehttpsleetcodecnproblemsshortest-subarray-with-sum-at-least-k"><a href="https://leetcode.cn/problems/shortest-subarray-with-sum-at-least-k/" target="_blank" rel="noopener">862. 和至少为 K 的最短子数组 - 力扣（LeetCode）</a>) <a href="#%e5%89%8d%e7%bc%80%e5%92%8c%e5%8d%95%e8%b0%83%e9%98%9f%e5%88%97862%e5%92%8c%e8%87%b3%e5%b0%91%e4%b8%bak%e7%9a%84%e6%9c%80%e7%9f%ad%e5%ad%90%e6%95%b0%e7%bb%84862-%e5%92%8c%e8%87%b3%e5%b0%91%e4%b8%ba-k-%e7%9a%84%e6%9c%80%e7%9f%ad%e5%ad%90%e6%95%b0%e7%bb%84---%e5%8a%9b%e6%89%a3leetcodehttpsleetcodecnproblemsshortest-subarray-with-sum-at-least-k" class="anchor">🔗</a></h3><div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a2f;font-weight:bold">class</span> <span style="color:#00f">Solution</span> <span style="color:#666">{</span>
+    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#0b0;font-weight:bold">int</span> <span style="color:#00a000">shortestSubarray</span><span style="color:#666">(</span><span style="color:#0b0;font-weight:bold">int</span><span style="color:#666">[]</span> nums<span style="color:#666">,</span> <span style="color:#0b0;font-weight:bold">int</span> k<span style="color:#666">)</span> <span style="color:#666">{</span>
+        <span style="color:#0b0;font-weight:bold">int</span> n <span style="color:#666">=</span> nums<span style="color:#666">.</span><span style="color:#b44">length</span><span style="color:#666">;</span>
+        <span style="color:#0b0;font-weight:bold">long</span><span style="color:#666">[]</span> pre <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> <span style="color:#0b0;font-weight:bold">long</span><span style="color:#666">[</span>n<span style="color:#666">+</span>1<span style="color:#666">];</span>
+        <span style="color:#a2f;font-weight:bold">for</span><span style="color:#666">(</span><span style="color:#0b0;font-weight:bold">int</span> i <span style="color:#666">=</span> 0<span style="color:#666">;</span> i <span style="color:#666">&lt;</span> n<span style="color:#666">;</span> i<span style="color:#666">++){</span>
+            pre<span style="color:#666">[</span>i<span style="color:#666">+</span>1<span style="color:#666">]</span> <span style="color:#666">=</span> pre<span style="color:#666">[</span>i<span style="color:#666">]</span> <span style="color:#666">+</span> nums<span style="color:#666">[</span>i<span style="color:#666">];</span>    <span style="color:#080;font-style:italic">//前缀和
+</span><span style="color:#080;font-style:italic"></span>        <span style="color:#666">}</span>
+
+        <span style="color:#0b0;font-weight:bold">int</span> res <span style="color:#666">=</span> n<span style="color:#666">+</span>1<span style="color:#666">;</span>
+
+        Deque<span style="color:#666">&lt;</span>Integer<span style="color:#666">&gt;</span> queue <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> ArrayDeque<span style="color:#666">&lt;&gt;();</span>
+        <span style="color:#a2f;font-weight:bold">for</span><span style="color:#666">(</span><span style="color:#0b0;font-weight:bold">int</span> i <span style="color:#666">=</span> 0<span style="color:#666">;</span> i <span style="color:#666">&lt;=</span> n<span style="color:#666">;</span> i<span style="color:#666">++){</span>
+            <span style="color:#0b0;font-weight:bold">long</span> curSum <span style="color:#666">=</span> pre<span style="color:#666">[</span>i<span style="color:#666">];</span>
+            <span style="color:#a2f;font-weight:bold">while</span><span style="color:#666">(!</span>queue<span style="color:#666">.</span><span style="color:#b44">isEmpty</span><span style="color:#666">()</span> <span style="color:#666">&amp;&amp;</span> curSum <span style="color:#666">-</span> pre<span style="color:#666">[</span>queue<span style="color:#666">.</span><span style="color:#b44">peekFirst</span><span style="color:#666">()]</span> <span style="color:#666">&gt;=</span> k<span style="color:#666">){</span>
+                res <span style="color:#666">=</span> Math<span style="color:#666">.</span><span style="color:#b44">min</span><span style="color:#666">(</span>res<span style="color:#666">,</span> i <span style="color:#666">-</span> queue<span style="color:#666">.</span><span style="color:#b44">pollFirst</span><span style="color:#666">());</span>
+            <span style="color:#666">}</span>
+            <span style="color:#a2f;font-weight:bold">while</span><span style="color:#666">(!</span>queue<span style="color:#666">.</span><span style="color:#b44">isEmpty</span><span style="color:#666">()</span> <span style="color:#666">&amp;&amp;</span> pre<span style="color:#666">[</span>queue<span style="color:#666">.</span><span style="color:#b44">peekLast</span><span style="color:#666">()]</span> <span style="color:#666">&gt;=</span> curSum<span style="color:#666">){</span>			<span style="color:#080;font-style:italic">// 保持单调递增
+</span><span style="color:#080;font-style:italic"></span>                queue<span style="color:#666">.</span><span style="color:#b44">pollLast</span><span style="color:#666">();</span>
+            <span style="color:#666">}</span>
+
+            queue<span style="color:#666">.</span><span style="color:#b44">offer</span><span style="color:#666">(</span>i<span style="color:#666">);</span>
+        <span style="color:#666">}</span>
+        <span style="color:#a2f;font-weight:bold">return</span> res <span style="color:#666">&lt;</span> n<span style="color:#666">+</span>1 <span style="color:#666">?</span> res <span style="color:#666">:</span> <span style="color:#666">-</span>1<span style="color:#666">;</span>
+    <span style="color:#666">}</span>
+<span style="color:#666">}</span>
+</code></pre></div>染色体法 <h3 id="染色体法-886-可能的二分法-httpsleetcodecnproblemspossible-bipartition"><a href="https://leetcode.cn/problems/possible-bipartition/" target="_blank" rel="noopener">886. 可能的二分法 </a> <a href="#%e6%9f%93%e8%89%b2%e4%bd%93%e6%b3%95-886-%e5%8f%af%e8%83%bd%e7%9a%84%e4%ba%8c%e5%88%86%e6%b3%95-httpsleetcodecnproblemspossible-bipartition" class="anchor">🔗</a></h3><div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a2f;font-weight:bold">class</span> <span style="color:#00f">Solution</span> <span style="color:#666">{</span>
     <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#0b0;font-weight:bold">boolean</span> <span style="color:#00a000">possibleBipartition</span><span style="color:#666">(</span><span style="color:#0b0;font-weight:bold">int</span> n<span style="color:#666">,</span> <span style="color:#0b0;font-weight:bold">int</span><span style="color:#666">[][]</span> dislikes<span style="color:#666">)</span> <span style="color:#666">{</span>	<span style="color:#080;font-style:italic">// 求二分图
 </span><span style="color:#080;font-style:italic"></span>        <span style="color:#0b0;font-weight:bold">int</span> m <span style="color:#666">=</span> dislikes<span style="color:#666">.</span><span style="color:#b44">length</span><span style="color:#666">;</span>
         List<span style="color:#666">&lt;</span>Integer<span style="color:#666">&gt;[]</span> lists <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> List<span style="color:#666">[</span>n<span style="color:#666">];</span>

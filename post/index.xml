@@ -13,7 +13,7 @@
       <pubDate>Sun, 23 Oct 2022 10:41:21 +0800</pubDate>
       
       <guid>https://redamency.github.io/post/algorithms/</guid>
-      <description>Kadane算法 🔗用于求最大的子数组和 算法描述：遍历数组，遍历过程中，将遍历到的元素依次累加起来（前缀和），当累加结果小于或等于0时，从下一</description>
+      <description>Algorithms 🔗Kadane算法 🔗53.最大子数组 918.最大循环子数组 用于求最大的子数组和 算法描述：遍历数组，遍历过程中，将遍历到的元素依次累加起来（</description>
     </item>
     
     <item>
