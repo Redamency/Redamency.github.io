@@ -6,7 +6,7 @@
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
 <meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="Algorithms 🔗Kadane算法 🔗53.最大子数组 918.最大循环子数组 用于求最大的子数组和 算法描述：遍历数组，遍历过程中，将遍历到的元素依次累加起来（">
+<meta name="description" content="Algorithms 🔗Peterson算法 🔗该算法是一个实现互斥锁的并发程序设计算法，可以控制两个线程访问一个共享的单用户资源而不发生访问冲突 boolean flag[2]; int turn; void procedure0() { while(true)">
 <meta name="generator" content="Hugo 0.82.0" />
 
 
@@ -69,13 +69,13 @@ if (!doNotTrack) {
           ·
         </span>
         <span>
-          496 words
+          1224 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          1 minute read
+          3 minute read
         </span>
     </div>
 
@@ -90,6 +90,7 @@ if (!doNotTrack) {
           <div>
               <nav id="TableOfContents">
   <ul>
+    <li><a href="#peterson算法">Peterson算法</a></li>
     <li><a href="#kadane算法">Kadane算法</a></li>
     <li><a href="#位运算">位运算</a></li>
     <li><a href="#图论">图论</a>
@@ -110,7 +111,72 @@ if (!doNotTrack) {
 
 
     <div class="content">
-      <h1 id="algorithms">Algorithms <a href="#algorithms" class="anchor">🔗</a></h1><h2 id="kadane算法">Kadane算法 <a href="#kadane%e7%ae%97%e6%b3%95" class="anchor">🔗</a></h2><p><a href="https://leetcode.cn/problems/maximum-subarray/" target="_blank" rel="noopener">53.最大子数组</a></p>
+      <h1 id="algorithms">Algorithms <a href="#algorithms" class="anchor">🔗</a></h1><h2 id="peterson算法">Peterson算法 <a href="#peterson%e7%ae%97%e6%b3%95" class="anchor">🔗</a></h2><p>该算法是一个实现互斥锁的并发程序设计算法，可以控制两个线程访问一个共享的单用户资源而不发生访问冲突</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">boolean flag[<span style="color:#666">2</span>];
+<span style="color:#0b0;font-weight:bold">int</span> turn;
+<span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">procedure0</span>()
+{
+<span style="color:#a2f;font-weight:bold">while</span>(<span style="color:#a2f">true</span>)
+{
+flag[<span style="color:#666">0</span>]<span style="color:#666">=</span><span style="color:#a2f">true</span>;
+turn<span style="color:#666">=</span><span style="color:#666">1</span>;
+<span style="color:#a2f;font-weight:bold">while</span>(flag[<span style="color:#666">1</span>]<span style="color:#666">&amp;&amp;</span>turn<span style="color:#666">==</span><span style="color:#666">1</span>) <span style="color:#080;font-style:italic">/*若flag[1]为false，P0就进入临界区；若flag[1]为tureP0循环等待，只要P1退出临界区，P0即可进入*/</span>
+{
+<span style="color:#080;font-style:italic">/* donothing*/</span>
+}
+visit();<span style="color:#080;font-style:italic">/*访问临界区*/</span>
+flag[<span style="color:#666">0</span>]<span style="color:#666">=</span><span style="color:#a2f">false</span>;<span style="color:#080;font-style:italic">/*访问临界区完成，procedure0释放出临界区*/</span>
+<span style="color:#080;font-style:italic">/*remainder section*/</span>
+}
+}
+<span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">procedure1</span>()
+{
+<span style="color:#a2f;font-weight:bold">while</span>(<span style="color:#a2f">true</span>)
+{
+flag[<span style="color:#666">1</span>]<span style="color:#666">=</span><span style="color:#a2f">true</span>;
+turn<span style="color:#666">=</span><span style="color:#666">0</span>;
+<span style="color:#a2f;font-weight:bold">while</span>(flag[<span style="color:#666">0</span>]<span style="color:#666">&amp;&amp;</span>turn<span style="color:#666">==</span><span style="color:#666">0</span>)
+{
+<span style="color:#080;font-style:italic">/* donothing*/</span> ;
+}
+visit();<span style="color:#080;font-style:italic">/*访问临界区*/</span>
+flag[<span style="color:#666">1</span>]<span style="color:#666">=</span><span style="color:#a2f">false</span>;<span style="color:#080;font-style:italic">/*访问临界区完成，procedure1释放出临界区*/</span>
+<span style="color:#080;font-style:italic">/*remainder section*/</span>
+}
+}
+<span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">main</span>()
+{
+flag[<span style="color:#666">0</span>]<span style="color:#666">=</span>flag[<span style="color:#666">1</span>]<span style="color:#666">=</span><span style="color:#a2f">false</span>;
+<span style="color:#080;font-style:italic">/*start procedure0 and procedure1*/</span> ;
+}
+</code></pre></div><p>该算法满足解决<a href="https://baike.baidu.com/item/%e4%b8%b4%e7%95%8c%e5%8c%ba/8942134?fromModule=lemma_inlink" target="_blank" rel="noopener">临界区</a>问题的三个必须标准：互斥访问, 进入， 有限等待。</p>
+<ul>
+<li>
+<p>互斥访问</p>
+</li>
+<li>
+<ul>
+<li>P0与P1显然不会同时在临界区: 如果进程P0在临界区内，那么或者flag[1]为假(意味着P1已经离开了它的<a href="https://baike.baidu.com/item/%e4%b8%b4%e7%95%8c%e5%8c%ba/8942134?fromModule=lemma_inlink" target="_blank" rel="noopener">临界区</a>)，或者turn为0(意味着P1只能在临界区外面等待，不能进入临界区).</li>
+</ul>
+</li>
+<li>
+<p>进入</p>
+</li>
+<li>
+<ul>
+<li>进入(Progress)定义为：如果没有进程处于临界区内且有进程希望进入临界区, 则只有那些不处于剩余区(remainder section)的进程可以决定哪个进程获得进入<a href="https://baike.baidu.com/item/%e4%b8%b4%e7%95%8c%e5%8c%ba/8942134?fromModule=lemma_inlink" target="_blank" rel="noopener">临界区</a>的权限，且这个决定不能无限推迟。剩余区是指进程已经访问了临界区，并已经执行完成退出临界区的代码，即该进程当前的状态与临界区关系不大。</li>
+</ul>
+</li>
+<li>
+<p>有限等待</p>
+</li>
+<li>
+<ul>
+<li>有限等待(Bounded waiting)意味着一个进程在提出进入临界区请求后，只需要等待临界区被使用有上限的次数后，该进程就可以进入<a href="https://baike.baidu.com/item/%e4%b8%b4%e7%95%8c%e5%8c%ba/8942134?fromModule=lemma_inlink" target="_blank" rel="noopener">临界区</a>。即进程不论其<a href="https://baike.baidu.com/item/%e4%bc%98%e5%85%88%e7%ba%a7/5643121?fromModule=lemma_inlink" target="_blank" rel="noopener">优先级</a>多低，不应该饿死(starvation)在该临界区入口处。Peterson算法显然让进程等待不超过1次的临界区使用，即可获得权限进入临界区。 [2]</li>
+</ul>
+</li>
+</ul>
+<h2 id="kadane算法">Kadane算法 <a href="#kadane%e7%ae%97%e6%b3%95" class="anchor">🔗</a></h2><p><a href="https://leetcode.cn/problems/maximum-subarray/" target="_blank" rel="noopener">53.最大子数组</a></p>
 <p><a href="https://leetcode.cn/problems/maximum-sum-circular-subarray/" target="_blank" rel="noopener">918.最大循环子数组</a></p>
 <p>用于求最大的子数组和</p>
 <p>算法描述：遍历数组，遍历过程中，将遍历到的元素依次累加起来（前缀和），当累加结果小于或等于0时，从下一个元素开始，重新开始累加。（该算法基于dp）</p>

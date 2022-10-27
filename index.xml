@@ -13,7 +13,7 @@
       <pubDate>Sun, 23 Oct 2022 10:41:21 +0800</pubDate>
       
       <guid>https://redamency.github.io/post/algorithms/</guid>
-      <description>Algorithms 🔗Kadane算法 🔗53.最大子数组 918.最大循环子数组 用于求最大的子数组和 算法描述：遍历数组，遍历过程中，将遍历到的元素依次累加起来（</description>
+      <description>Algorithms 🔗Peterson算法 🔗该算法是一个实现互斥锁的并发程序设计算法，可以控制两个线程访问一个共享的单用户资源而不发生访问冲突 boolean flag[2]; int turn; void procedure0() { while(true)</description>
     </item>
     
     <item>
