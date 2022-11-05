@@ -6,7 +6,7 @@
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
 <meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="Algorithms 🔗Peterson算法 🔗该算法是一个实现互斥锁的并发程序设计算法，可以控制两个线程访问一个共享的单用户资源而不发生访问冲突 boolean flag[2]; int turn; void procedure0() { while(true)">
+<meta name="description" content="Algorithms 🔗栈的应用 🔗1106. 解析布尔表达式 运行中动态的改变栈中的内容，以达到逐步计算的效果 class Solution { public boolean parseBoolExpr(String expression) { int n = expression.length(); Deque&lt;Character&gt; deque = new ArrayDeque&lt;&gt;(); // Deque&lt;Character&gt; deque_logic = new ArrayDeque&lt;&gt;(); for(int i = 0;">
 <meta name="generator" content="Hugo 0.82.0" />
 
 
@@ -69,7 +69,7 @@ if (!doNotTrack) {
           ·
         </span>
         <span>
-          1224 words
+          1374 words
         </span>
         <span class="split">
           ·
@@ -90,6 +90,7 @@ if (!doNotTrack) {
           <div>
               <nav id="TableOfContents">
   <ul>
+    <li><a href="#栈的应用">栈的应用</a></li>
     <li><a href="#peterson算法">Peterson算法</a></li>
     <li><a href="#kadane算法">Kadane算法</a></li>
     <li><a href="#位运算">位运算</a></li>
@@ -111,7 +112,43 @@ if (!doNotTrack) {
 
 
     <div class="content">
-      <h1 id="algorithms">Algorithms <a href="#algorithms" class="anchor">🔗</a></h1><h2 id="peterson算法">Peterson算法 <a href="#peterson%e7%ae%97%e6%b3%95" class="anchor">🔗</a></h2><p>该算法是一个实现互斥锁的并发程序设计算法，可以控制两个线程访问一个共享的单用户资源而不发生访问冲突</p>
+      <h1 id="algorithms">Algorithms <a href="#algorithms" class="anchor">🔗</a></h1><h2 id="栈的应用">栈的应用 <a href="#%e6%a0%88%e7%9a%84%e5%ba%94%e7%94%a8" class="anchor">🔗</a></h2><p><a href="https://leetcode.cn/problems/parsing-a-boolean-expression/" target="_blank" rel="noopener">1106. 解析布尔表达式</a></p>
+<p>运行中动态的改变栈中的内容，以达到逐步计算的效果</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java"><span style="color:#a2f;font-weight:bold">class</span> <span style="color:#00f">Solution</span> <span style="color:#666">{</span>
+    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#0b0;font-weight:bold">boolean</span> <span style="color:#00a000">parseBoolExpr</span><span style="color:#666">(</span>String expression<span style="color:#666">)</span> <span style="color:#666">{</span>
+        <span style="color:#0b0;font-weight:bold">int</span> n <span style="color:#666">=</span> expression<span style="color:#666">.</span><span style="color:#b44">length</span><span style="color:#666">();</span>
+        Deque<span style="color:#666">&lt;</span>Character<span style="color:#666">&gt;</span> deque <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> ArrayDeque<span style="color:#666">&lt;&gt;();</span>
+        <span style="color:#080;font-style:italic">// Deque&lt;Character&gt; deque_logic = new ArrayDeque&lt;&gt;();
+</span><span style="color:#080;font-style:italic"></span>        <span style="color:#a2f;font-weight:bold">for</span><span style="color:#666">(</span><span style="color:#0b0;font-weight:bold">int</span> i <span style="color:#666">=</span> 0<span style="color:#666">;</span> i <span style="color:#666">&lt;</span> n<span style="color:#666">;</span> i<span style="color:#666">++){</span>
+            <span style="color:#0b0;font-weight:bold">char</span> ch <span style="color:#666">=</span> expression<span style="color:#666">.</span><span style="color:#b44">charAt</span><span style="color:#666">(</span>i<span style="color:#666">);</span>
+            <span style="color:#a2f;font-weight:bold">if</span><span style="color:#666">(</span>ch <span style="color:#666">==</span> <span style="color:#b44">&#39;,&#39;</span><span style="color:#666">)</span>
+                <span style="color:#a2f;font-weight:bold">continue</span><span style="color:#666">;</span>
+            <span style="color:#a2f;font-weight:bold">else</span> <span style="color:#a2f;font-weight:bold">if</span><span style="color:#666">(</span>ch <span style="color:#666">==</span> <span style="color:#b44">&#39;)&#39;</span><span style="color:#666">){</span>
+                <span style="color:#0b0;font-weight:bold">int</span> t <span style="color:#666">=</span> 0<span style="color:#666">,</span> f <span style="color:#666">=</span> 0<span style="color:#666">;</span>
+                <span style="color:#a2f;font-weight:bold">while</span><span style="color:#666">(</span>deque<span style="color:#666">.</span><span style="color:#b44">peekFirst</span><span style="color:#666">()</span> <span style="color:#666">!=</span> <span style="color:#b44">&#39;(&#39;</span><span style="color:#666">){</span>
+                    <span style="color:#0b0;font-weight:bold">char</span> temp <span style="color:#666">=</span> deque<span style="color:#666">.</span><span style="color:#b44">pollFirst</span><span style="color:#666">();</span>
+                    <span style="color:#a2f;font-weight:bold">if</span><span style="color:#666">(</span>temp <span style="color:#666">==</span> <span style="color:#b44">&#39;t&#39;</span><span style="color:#666">)</span>
+                        t<span style="color:#666">++;</span>
+                    <span style="color:#a2f;font-weight:bold">else</span>
+                        f<span style="color:#666">++;</span>
+                <span style="color:#666">}</span>
+                deque<span style="color:#666">.</span><span style="color:#b44">pollFirst</span><span style="color:#666">();</span>
+                <span style="color:#0b0;font-weight:bold">char</span> expr <span style="color:#666">=</span> deque<span style="color:#666">.</span><span style="color:#b44">pollFirst</span><span style="color:#666">();</span>
+                <span style="color:#a2f;font-weight:bold">if</span><span style="color:#666">(</span>expr <span style="color:#666">==</span> <span style="color:#b44">&#39;!&#39;</span><span style="color:#666">){</span>
+                    deque<span style="color:#666">.</span><span style="color:#b44">addFirst</span><span style="color:#666">(</span>t <span style="color:#666">==</span> 0 <span style="color:#666">?</span> <span style="color:#b44">&#39;t&#39;</span> <span style="color:#666">:</span> <span style="color:#b44">&#39;f&#39;</span><span style="color:#666">);</span>
+                <span style="color:#666">}</span><span style="color:#a2f;font-weight:bold">else</span> <span style="color:#a2f;font-weight:bold">if</span><span style="color:#666">(</span>expr <span style="color:#666">==</span> <span style="color:#b44">&#39;&amp;&#39;</span><span style="color:#666">){</span>
+                    deque<span style="color:#666">.</span><span style="color:#b44">addFirst</span><span style="color:#666">(</span>f <span style="color:#666">&gt;</span> 0 <span style="color:#666">?</span> <span style="color:#b44">&#39;f&#39;</span> <span style="color:#666">:</span> <span style="color:#b44">&#39;t&#39;</span><span style="color:#666">);</span>
+                <span style="color:#666">}</span><span style="color:#a2f;font-weight:bold">else</span><span style="color:#666">{</span>
+                    deque<span style="color:#666">.</span><span style="color:#b44">addFirst</span><span style="color:#666">(</span>t <span style="color:#666">&gt;</span> 0 <span style="color:#666">?</span> <span style="color:#b44">&#39;t&#39;</span> <span style="color:#666">:</span> <span style="color:#b44">&#39;f&#39;</span><span style="color:#666">);</span>
+                <span style="color:#666">}</span>
+            <span style="color:#666">}</span><span style="color:#a2f;font-weight:bold">else</span><span style="color:#666">{</span>
+                deque<span style="color:#666">.</span><span style="color:#b44">addFirst</span><span style="color:#666">(</span>ch<span style="color:#666">);</span>
+            <span style="color:#666">}</span>
+        <span style="color:#666">}</span>
+        <span style="color:#a2f;font-weight:bold">return</span> deque<span style="color:#666">.</span><span style="color:#b44">poll</span><span style="color:#666">()</span> <span style="color:#666">==</span> <span style="color:#b44">&#39;t&#39;</span><span style="color:#666">;</span> 
+    <span style="color:#666">}</span>
+<span style="color:#666">}</span>
+</code></pre></div><h2 id="peterson算法">Peterson算法 <a href="#peterson%e7%ae%97%e6%b3%95" class="anchor">🔗</a></h2><p>该算法是一个实现互斥锁的并发程序设计算法，可以控制两个线程访问一个共享的单用户资源而不发生访问冲突</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">boolean flag[<span style="color:#666">2</span>];
 <span style="color:#0b0;font-weight:bold">int</span> turn;
 <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">procedure0</span>()
