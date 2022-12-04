@@ -6,7 +6,16 @@
     <description>Recent content in Posts on Young</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 23 Oct 2022 10:41:21 +0800</lastBuildDate><atom:link href="https://redamency.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 04 Dec 2022 11:41:03 +0800</lastBuildDate><atom:link href="https://redamency.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Acwing</title>
+      <link>https://redamency.github.io/post/acwing/</link>
+      <pubDate>Sun, 04 Dec 2022 11:41:03 +0800</pubDate>
+      
+      <guid>https://redamency.github.io/post/acwing/</guid>
+      <description>Acwing 🔗二分 🔗最佳牛围栏 🔗农夫约翰的农场由 N 块田地组成，每块地里都有一定数量的牛，其数量不会少于 1 头，也不会超过 2000 头。 约翰希望用围栏将一部分连续</description>
+    </item>
+    
     <item>
       <title>Algorithms</title>
       <link>https://redamency.github.io/post/algorithms/</link>
