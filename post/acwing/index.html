@@ -69,13 +69,13 @@ if (!doNotTrack) {
           ·
         </span>
         <span>
-          793 words
+          1478 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          2 minute read
+          3 minute read
         </span>
     </div>
 
@@ -93,6 +93,11 @@ if (!doNotTrack) {
     <li><a href="#二分">二分</a>
       <ul>
         <li><a href="#最佳牛围栏">最佳牛围栏</a></li>
+      </ul>
+    </li>
+    <li><a href="#差分">差分</a>
+      <ul>
+        <li><a href="#增减序列">增减序列</a></li>
       </ul>
     </li>
   </ul>
@@ -221,6 +226,64 @@ if (!doNotTrack) {
     printf(<span style="color:#b44">&#34;%d</span><span style="color:#b62;font-weight:bold">\n</span><span style="color:#b44">&#34;</span>,(<span style="color:#0b0;font-weight:bold">int</span>)(r<span style="color:#666">*</span><span style="color:#666">1000</span>));
     <span style="color:#a2f;font-weight:bold">return</span> <span style="color:#666">0</span>;
 }
+</code></pre></div><h2 id="差分">差分 <a href="#%e5%b7%ae%e5%88%86" class="anchor">🔗</a></h2><h3 id="增减序列">增减序列 <a href="#%e5%a2%9e%e5%87%8f%e5%ba%8f%e5%88%97" class="anchor">🔗</a></h3><p>给定一个长度为 nn 的数列 a1,a2,…,ana1,a2,…,an，每次可以选择一个区间 [l,r][l,r]，使下标在这个区间内的数都加一或者都减一。</p>
+<p>求至少需要多少次操作才能使数列中的所有数都一样，并求出在保证最少次数的前提下，最终得到的数列可能有多少种。</p>
+<h4 id="输入格式-1">输入格式 <a href="#%e8%be%93%e5%85%a5%e6%a0%bc%e5%bc%8f-1" class="anchor">🔗</a></h4><p>第一行输入正整数 nn。</p>
+<p>接下来 nn 行，每行输入一个整数，第 i+1i+1 行的整数代表 aiai。</p>
+<h4 id="输出格式-1">输出格式 <a href="#%e8%be%93%e5%87%ba%e6%a0%bc%e5%bc%8f-1" class="anchor">🔗</a></h4><p>第一行输出最少操作次数。</p>
+<p>第二行输出最终能得到多少种结果。</p>
+<h4 id="数据范围-1">数据范围 <a href="#%e6%95%b0%e6%8d%ae%e8%8c%83%e5%9b%b4-1" class="anchor">🔗</a></h4><p>0&lt;n≤1050&lt;n≤105,
+0≤ai&lt;21474836480≤ai&lt;2147483648</p>
+<h4 id="输入样例-1">输入样例： <a href="#%e8%be%93%e5%85%a5%e6%a0%b7%e4%be%8b-1" class="anchor">🔗</a></h4><div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">4
+1
+1
+2
+2
+</code></pre></div><h4 id="输出样例-1">输出样例： <a href="#%e8%be%93%e5%87%ba%e6%a0%b7%e4%be%8b-1" class="anchor">🔗</a></h4><div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">1
+2
+</code></pre></div><h4 id="解析-1">解析 <a href="#%e8%a7%a3%e6%9e%90-1" class="anchor">🔗</a></h4><p>对数组一段区间进行加或者减：差分</p>
+<p>最后要得到的差分数组除了第一个数，其它全是0，由于差分数组中可能有整数/负数，基于差分的性质，我们可以使这样的一对数，使正数减1，负数加1（对应于在原数组中的这段区间内进行了一次加/减1操作），之后差分数组只剩下同符号的数，剩下的同符号的数只能通过b[1]或者b[i+1]两个对差分数组没有影响的来一个一个的把自己减为0。</p>
+<p>所以操作次数最小为：min(pos,neg) + abs(pos - neg);		//参数含义见代码</p>
+<p>种类数量最少为：abs(pos - neg) + 1;</p>
+<h4 id="代码-1">代码 <a href="#%e4%bb%a3%e7%a0%81-1" class="anchor">🔗</a></h4><div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">
+<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">java.io.BufferedReader</span><span style="color:#666">;</span>
+<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">java.io.IOException</span><span style="color:#666">;</span>
+<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">java.io.InputStreamReader</span><span style="color:#666">;</span>
+<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">java.util.Scanner</span><span style="color:#666">;</span>
+
+<span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">class</span> <span style="color:#00f">Main</span> <span style="color:#666">{</span>
+
+    <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#a2f;font-weight:bold">final</span> <span style="color:#0b0;font-weight:bold">int</span> N <span style="color:#666">=</span> 100010<span style="color:#666">;</span>
+
+    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">main</span><span style="color:#666">(</span>String<span style="color:#666">[]</span> args<span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> IOException <span style="color:#666">{</span>
+<span style="color:#080;font-style:italic">//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+</span><span style="color:#080;font-style:italic">//        String[] s = br.readLine().split(&#34; &#34;);
+</span><span style="color:#080;font-style:italic"></span>        Scanner scanner <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> Scanner<span style="color:#666">(</span>System<span style="color:#666">.</span><span style="color:#b44">in</span><span style="color:#666">);</span>
+        <span style="color:#0b0;font-weight:bold">int</span> n <span style="color:#666">=</span> scanner<span style="color:#666">.</span><span style="color:#b44">nextInt</span><span style="color:#666">();</span>
+        <span style="color:#0b0;font-weight:bold">int</span><span style="color:#666">[]</span> a <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> <span style="color:#0b0;font-weight:bold">int</span><span style="color:#666">[</span>N<span style="color:#666">];</span>
+        <span style="color:#0b0;font-weight:bold">int</span><span style="color:#666">[]</span> b <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> <span style="color:#0b0;font-weight:bold">int</span><span style="color:#666">[</span>N<span style="color:#666">];</span>   <span style="color:#080;font-style:italic">//差分数组
+</span><span style="color:#080;font-style:italic"></span>        <span style="color:#a2f;font-weight:bold">for</span> <span style="color:#666">(</span><span style="color:#0b0;font-weight:bold">int</span> i <span style="color:#666">=</span> 1<span style="color:#666">;</span> i <span style="color:#666">&lt;=</span> n <span style="color:#666">;</span> i<span style="color:#666">++)</span> <span style="color:#666">{</span>
+            a<span style="color:#666">[</span>i<span style="color:#666">]</span> <span style="color:#666">=</span> scanner<span style="color:#666">.</span><span style="color:#b44">nextInt</span><span style="color:#666">();</span>
+        <span style="color:#666">}</span>
+
+        <span style="color:#a2f;font-weight:bold">for</span> <span style="color:#666">(</span><span style="color:#0b0;font-weight:bold">int</span> i <span style="color:#666">=</span> 1<span style="color:#666">;</span> i <span style="color:#666">&lt;=</span> n<span style="color:#666">;</span> i<span style="color:#666">++)</span> <span style="color:#666">{</span>
+            b<span style="color:#666">[</span>i<span style="color:#666">]</span> <span style="color:#666">=</span> a<span style="color:#666">[</span>i<span style="color:#666">]</span> <span style="color:#666">-</span> a<span style="color:#666">[</span>i<span style="color:#666">-</span>1<span style="color:#666">];</span>
+        <span style="color:#666">}</span>
+        
+        <span style="color:#0b0;font-weight:bold">long</span> pos <span style="color:#666">=</span> 0<span style="color:#666">,</span> neg <span style="color:#666">=</span> 0<span style="color:#666">;</span>
+        <span style="color:#a2f;font-weight:bold">for</span> <span style="color:#666">(</span><span style="color:#0b0;font-weight:bold">int</span> i <span style="color:#666">=</span> 2<span style="color:#666">;</span> i <span style="color:#666">&lt;=</span> n<span style="color:#666">;</span> i<span style="color:#666">++)</span> <span style="color:#666">{</span>
+            <span style="color:#a2f;font-weight:bold">if</span><span style="color:#666">(</span>b<span style="color:#666">[</span>i<span style="color:#666">]</span> <span style="color:#666">&gt;</span> 0<span style="color:#666">)</span>
+                pos <span style="color:#666">+=</span> b<span style="color:#666">[</span>i<span style="color:#666">];</span>        <span style="color:#080;font-style:italic">//正数的和
+</span><span style="color:#080;font-style:italic"></span>            <span style="color:#a2f;font-weight:bold">else</span> 
+                neg <span style="color:#666">-=</span> b<span style="color:#666">[</span>i<span style="color:#666">];</span>         <span style="color:#080;font-style:italic">//负数的和的绝对值
+</span><span style="color:#080;font-style:italic"></span>        <span style="color:#666">}</span>
+
+        System<span style="color:#666">.</span><span style="color:#b44">out</span><span style="color:#666">.</span><span style="color:#b44">println</span><span style="color:#666">(</span>Math<span style="color:#666">.</span><span style="color:#b44">min</span><span style="color:#666">(</span>pos<span style="color:#666">,</span>neg<span style="color:#666">)</span> <span style="color:#666">+</span> Math<span style="color:#666">.</span><span style="color:#b44">abs</span><span style="color:#666">(</span>pos <span style="color:#666">-</span> neg<span style="color:#666">));</span>
+        System<span style="color:#666">.</span><span style="color:#b44">out</span><span style="color:#666">.</span><span style="color:#b44">println</span><span style="color:#666">(</span>Math<span style="color:#666">.</span><span style="color:#b44">abs</span><span style="color:#666">(</span>pos <span style="color:#666">-</span> neg<span style="color:#666">)</span> <span style="color:#666">+</span> 1<span style="color:#666">);</span>
+
+    <span style="color:#666">}</span>
+
+<span style="color:#666">}</span>
 </code></pre></div>
     </div>
 
