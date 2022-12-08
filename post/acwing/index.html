@@ -69,13 +69,13 @@ if (!doNotTrack) {
           ·
         </span>
         <span>
-          1478 words
+          2310 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          3 minute read
+          5 minute read
         </span>
     </div>
 
@@ -98,6 +98,11 @@ if (!doNotTrack) {
     <li><a href="#差分">差分</a>
       <ul>
         <li><a href="#增减序列">增减序列</a></li>
+      </ul>
+    </li>
+    <li><a href="#单调栈">单调栈</a>
+      <ul>
+        <li><a href="#直方图中最大的矩形">直方图中最大的矩形</a></li>
       </ul>
     </li>
   </ul>
@@ -133,10 +138,12 @@ if (!doNotTrack) {
 4
 1
 </code></pre></div><h4 id="输出样例">输出样例： <a href="#%e8%be%93%e5%87%ba%e6%a0%b7%e4%be%8b" class="anchor">🔗</a></h4><div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">6500
-</code></pre></div><h4 id="解析">解析 <a href="#%e8%a7%a3%e6%9e%90" class="anchor">🔗</a></h4><ul>
-<li>可能的最大值，关键字，考虑二分，假设存在某一个平均值满足题目条件，那么小于该值的平均值一定也满足题目条件，而大于该值的平均值不一定满足条件，符合二分的性质。</li>
-<li>为了快速判断某一区间的值是否大于我们二分的平均值，我们可以让每个数减去平均值，再求前缀和，只要判断是否存在非负的和即可（同时要保证长度大于等于F）</li>
-</ul>
+</code></pre></div><h4 id="解析">解析 <a href="#%e8%a7%a3%e6%9e%90" class="anchor">🔗</a></h4><blockquote>
+<p>可能的最大值，关键字，考虑二分，假设存在某一个平均值满足题目条件，那么小于该值的平均值一定也满足题目条件，而大于该值的平均值不一定满足条件，符合二分的性质。</p>
+</blockquote>
+<blockquote>
+<p>为了快速判断某一区间的值是否大于我们二分的平均值，我们可以让每个数减去平均值，再求前缀和，只要判断是否存在非负的和即可（同时要保证长度大于等于F）</p>
+</blockquote>
 <h4 id="代码">代码 <a href="#%e4%bb%a3%e7%a0%81" class="anchor">🔗</a></h4><div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a2f;font-weight:bold">package</span> <span style="color:#00f;font-weight:bold">Young.AcWing.binary</span><span style="color:#666">;</span>
 
 <span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">java.util.Scanner</span><span style="color:#666">;</span>
@@ -241,10 +248,12 @@ if (!doNotTrack) {
 2
 </code></pre></div><h4 id="输出样例-1">输出样例： <a href="#%e8%be%93%e5%87%ba%e6%a0%b7%e4%be%8b-1" class="anchor">🔗</a></h4><div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">1
 2
-</code></pre></div><h4 id="解析-1">解析 <a href="#%e8%a7%a3%e6%9e%90-1" class="anchor">🔗</a></h4><p>对数组一段区间进行加或者减：差分</p>
-<p>最后要得到的差分数组除了第一个数，其它全是0，由于差分数组中可能有整数/负数，基于差分的性质，我们可以使这样的一对数，使正数减1，负数加1（对应于在原数组中的这段区间内进行了一次加/减1操作），之后差分数组只剩下同符号的数，剩下的同符号的数只能通过b[1]或者b[i+1]两个对差分数组没有影响的来一个一个的把自己减为0。</p>
+</code></pre></div><h4 id="解析-1">解析 <a href="#%e8%a7%a3%e6%9e%90-1" class="anchor">🔗</a></h4><blockquote>
+<p>对数组一段区间进行加或者减：</p>
+<p>差分最后要得到的差分数组除了第一个数，其它全是0，由于差分数组中可能有整数/负数，基于差分的性质，我们可以使这样的一对数，使正数减1，负数加1（对应于在原数组中的这段区间内进行了一次加/减1操作），之后差分数组只剩下同符号的数，剩下的同符号的数只能通过b[1]或者b[i+1]两个对差分数组没有影响的来一个一个的把自己减为0。</p>
 <p>所以操作次数最小为：min(pos,neg) + abs(pos - neg);		//参数含义见代码</p>
 <p>种类数量最少为：abs(pos - neg) + 1;</p>
+</blockquote>
 <h4 id="代码-1">代码 <a href="#%e4%bb%a3%e7%a0%81-1" class="anchor">🔗</a></h4><div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">
 <span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">java.io.BufferedReader</span><span style="color:#666">;</span>
 <span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">java.io.IOException</span><span style="color:#666">;</span>
@@ -281,6 +290,88 @@ if (!doNotTrack) {
         System<span style="color:#666">.</span><span style="color:#b44">out</span><span style="color:#666">.</span><span style="color:#b44">println</span><span style="color:#666">(</span>Math<span style="color:#666">.</span><span style="color:#b44">min</span><span style="color:#666">(</span>pos<span style="color:#666">,</span>neg<span style="color:#666">)</span> <span style="color:#666">+</span> Math<span style="color:#666">.</span><span style="color:#b44">abs</span><span style="color:#666">(</span>pos <span style="color:#666">-</span> neg<span style="color:#666">));</span>
         System<span style="color:#666">.</span><span style="color:#b44">out</span><span style="color:#666">.</span><span style="color:#b44">println</span><span style="color:#666">(</span>Math<span style="color:#666">.</span><span style="color:#b44">abs</span><span style="color:#666">(</span>pos <span style="color:#666">-</span> neg<span style="color:#666">)</span> <span style="color:#666">+</span> 1<span style="color:#666">);</span>
 
+    <span style="color:#666">}</span>
+
+<span style="color:#666">}</span>
+</code></pre></div><h2 id="单调栈">单调栈 <a href="#%e5%8d%95%e8%b0%83%e6%a0%88" class="anchor">🔗</a></h2><h3 id="直方图中最大的矩形">直方图中最大的矩形 <a href="#%e7%9b%b4%e6%96%b9%e5%9b%be%e4%b8%ad%e6%9c%80%e5%a4%a7%e7%9a%84%e7%9f%a9%e5%bd%a2" class="anchor">🔗</a></h3><p>直方图是由在公共基线处对齐的一系列矩形组成的多边形。</p>
+<p>矩形具有相等的宽度，但可以具有不同的高度。</p>
+<p>例如，图例左侧显示了由高度为 2,1,4,5,1,3,32,1,4,5,1,3,3 的矩形组成的直方图，矩形的宽度都为 11：</p>
+<p><p class="markdown-image">
+  <img src="https://www.acwing.com/media/article/image/2019/01/14/19_eac6c46017-2559_1.jpg" alt="2559_1.jpg"  />
+</p></p>
+<p>通常，直方图用于表示离散分布，例如，文本中字符的频率。</p>
+<p>现在，请你计算在公共基线处对齐的直方图中最大矩形的面积。</p>
+<p>图例右图显示了所描绘直方图的最大对齐矩形。</p>
+<h4 id="输入格式-2">输入格式 <a href="#%e8%be%93%e5%85%a5%e6%a0%bc%e5%bc%8f-2" class="anchor">🔗</a></h4><p>输入包含几个测试用例。</p>
+<p>每个测试用例占据一行，用以描述一个直方图，并以整数 nn 开始，表示组成直方图的矩形数目。</p>
+<p>然后跟随 nn 个整数 h1，…，hnh1，…，hn。</p>
+<p>这些数字以从左到右的顺序表示直方图的各个矩形的高度。</p>
+<p>每个矩形的宽度为 11。</p>
+<p>同行数字用空格隔开。</p>
+<p>当输入用例为 n=0n=0 时，结束输入，且该用例不用考虑。</p>
+<h4 id="输出格式-2">输出格式 <a href="#%e8%be%93%e5%87%ba%e6%a0%bc%e5%bc%8f-2" class="anchor">🔗</a></h4><p>对于每一个测试用例，输出一个整数，代表指定直方图中最大矩形的区域面积。</p>
+<p>每个数据占一行。</p>
+<p>请注意，此矩形必须在公共基线处对齐。</p>
+<h4 id="数据范围-2">数据范围 <a href="#%e6%95%b0%e6%8d%ae%e8%8c%83%e5%9b%b4-2" class="anchor">🔗</a></h4><p>1≤n≤1000001≤n≤100000,
+0≤hi≤10000000000≤hi≤1000000000</p>
+<h4 id="输入样例-2">输入样例： <a href="#%e8%be%93%e5%85%a5%e6%a0%b7%e4%be%8b-2" class="anchor">🔗</a></h4><div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">7 2 1 4 5 1 3 3
+4 1000 1000 1000 1000
+0
+</code></pre></div><h4 id="输出样例-2">输出样例： <a href="#%e8%be%93%e5%87%ba%e6%a0%b7%e4%be%8b-2" class="anchor">🔗</a></h4><div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">8
+4000
+</code></pre></div><h4 id="解析-2">解析 <a href="#%e8%a7%a3%e6%9e%90-2" class="anchor">🔗</a></h4><blockquote>
+<p>首先考虑如何用最朴素的想法做出本题，我们可以枚举每一个矩形作为右边界，再枚举每个左边界，取最大值，时间复杂度为O(n^2)，现在考虑如何优化，可以知道答案中的矩形高度一定是图中的某个矩形的高度，我们可以<strong>枚举每一个矩形的高度</strong>，让它向两边扩展，当遇到不比它矮的就继续扩展，遇到比它矮的就停止扩展，这样问题就转化为了<strong>寻找某个矩形左边/后边第一个比它矮的矩形</strong>，正是<strong>单调栈</strong>的性质，O(n)。</p>
+</blockquote>
+<h4 id="代码-2">代码 <a href="#%e4%bb%a3%e7%a0%81-2" class="anchor">🔗</a></h4><div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">
+<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">java.util.Scanner</span><span style="color:#666">;</span>
+<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">java.util.Stack</span><span style="color:#666">;</span>
+
+<span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">class</span> <span style="color:#00f">Main</span> <span style="color:#666">{</span>
+    <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#a2f;font-weight:bold">final</span> <span style="color:#0b0;font-weight:bold">int</span> N <span style="color:#666">=</span> 100010<span style="color:#666">;</span>
+    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">main</span><span style="color:#666">(</span>String<span style="color:#666">[]</span> args<span style="color:#666">)</span> <span style="color:#666">{</span>
+        Scanner scanner <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> Scanner<span style="color:#666">(</span>System<span style="color:#666">.</span><span style="color:#b44">in</span><span style="color:#666">);</span>
+        <span style="color:#0b0;font-weight:bold">int</span> n<span style="color:#666">;</span>
+        <span style="color:#a2f;font-weight:bold">while</span> <span style="color:#666">(</span>scanner<span style="color:#666">.</span><span style="color:#b44">hasNext</span><span style="color:#666">()){</span>
+            n <span style="color:#666">=</span> scanner<span style="color:#666">.</span><span style="color:#b44">nextInt</span><span style="color:#666">();</span>
+            <span style="color:#a2f;font-weight:bold">if</span><span style="color:#666">(</span>n <span style="color:#666">==</span> 0<span style="color:#666">)</span>
+                <span style="color:#a2f;font-weight:bold">break</span><span style="color:#666">;</span>
+            <span style="color:#0b0;font-weight:bold">long</span> res <span style="color:#666">=</span> 0<span style="color:#666">;</span>
+            Stack<span style="color:#666">&lt;</span>Integer<span style="color:#666">&gt;</span> stack <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> Stack<span style="color:#666">&lt;&gt;();</span>
+            <span style="color:#0b0;font-weight:bold">int</span><span style="color:#666">[]</span> h <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> <span style="color:#0b0;font-weight:bold">int</span><span style="color:#666">[</span>N<span style="color:#666">];</span>
+            <span style="color:#0b0;font-weight:bold">int</span><span style="color:#666">[]</span> l <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> <span style="color:#0b0;font-weight:bold">int</span><span style="color:#666">[</span>N<span style="color:#666">];</span>
+            <span style="color:#0b0;font-weight:bold">int</span><span style="color:#666">[]</span> r <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> <span style="color:#0b0;font-weight:bold">int</span><span style="color:#666">[</span>N<span style="color:#666">];</span>
+            <span style="color:#a2f;font-weight:bold">for</span> <span style="color:#666">(</span><span style="color:#0b0;font-weight:bold">int</span> i <span style="color:#666">=</span> 1<span style="color:#666">;</span> i <span style="color:#666">&lt;=</span> n<span style="color:#666">;</span> i<span style="color:#666">++)</span> <span style="color:#666">{</span>
+                h<span style="color:#666">[</span>i<span style="color:#666">]</span> <span style="color:#666">=</span> scanner<span style="color:#666">.</span><span style="color:#b44">nextInt</span><span style="color:#666">();</span>
+            <span style="color:#666">}</span>
+            h<span style="color:#666">[</span>0<span style="color:#666">]</span> <span style="color:#666">=</span> <span style="color:#666">-</span>1<span style="color:#666">;</span>  <span style="color:#080;font-style:italic">//设置两个边界
+</span><span style="color:#080;font-style:italic"></span>            h<span style="color:#666">[</span>n<span style="color:#666">+</span>1<span style="color:#666">]</span> <span style="color:#666">=</span> <span style="color:#666">-</span>1<span style="color:#666">;</span>
+            
+            stack<span style="color:#666">.</span><span style="color:#b44">push</span><span style="color:#666">(</span>0<span style="color:#666">);</span>
+            <span style="color:#a2f;font-weight:bold">for</span> <span style="color:#666">(</span><span style="color:#0b0;font-weight:bold">int</span> i <span style="color:#666">=</span> 1<span style="color:#666">;</span> i <span style="color:#666">&lt;=</span> n<span style="color:#666">;</span> i<span style="color:#666">++){</span>
+                <span style="color:#a2f;font-weight:bold">while</span> <span style="color:#666">(</span>h<span style="color:#666">[</span>i<span style="color:#666">]</span> <span style="color:#666">&lt;=</span> h<span style="color:#666">[</span>stack<span style="color:#666">.</span><span style="color:#b44">peek</span><span style="color:#666">()]){</span>
+                    stack<span style="color:#666">.</span><span style="color:#b44">pop</span><span style="color:#666">();</span>
+                <span style="color:#666">}</span>
+                l<span style="color:#666">[</span>i<span style="color:#666">]</span> <span style="color:#666">=</span> stack<span style="color:#666">.</span><span style="color:#b44">peek</span><span style="color:#666">();</span>
+                stack<span style="color:#666">.</span><span style="color:#b44">push</span><span style="color:#666">(</span>i<span style="color:#666">);</span>
+            <span style="color:#666">}</span>
+            
+            stack<span style="color:#666">.</span><span style="color:#b44">clear</span><span style="color:#666">();</span>
+            stack<span style="color:#666">.</span><span style="color:#b44">push</span><span style="color:#666">(</span>n<span style="color:#666">+</span>1<span style="color:#666">);</span>
+            
+            <span style="color:#a2f;font-weight:bold">for</span> <span style="color:#666">(</span><span style="color:#0b0;font-weight:bold">int</span> i <span style="color:#666">=</span> n<span style="color:#666">;</span> i <span style="color:#666">&gt;</span> 0<span style="color:#666">;</span> i<span style="color:#666">--)</span> <span style="color:#666">{</span>
+                <span style="color:#a2f;font-weight:bold">while</span> <span style="color:#666">(</span>h<span style="color:#666">[</span>i<span style="color:#666">]</span> <span style="color:#666">&lt;=</span> h<span style="color:#666">[</span>stack<span style="color:#666">.</span><span style="color:#b44">peek</span><span style="color:#666">()])</span> <span style="color:#666">{</span>
+                    stack<span style="color:#666">.</span><span style="color:#b44">pop</span><span style="color:#666">();</span>
+                <span style="color:#666">}</span>
+                r<span style="color:#666">[</span>i<span style="color:#666">]</span> <span style="color:#666">=</span> stack<span style="color:#666">.</span><span style="color:#b44">peek</span><span style="color:#666">();</span>
+                stack<span style="color:#666">.</span><span style="color:#b44">push</span><span style="color:#666">(</span>i<span style="color:#666">);</span>
+            <span style="color:#666">}</span>
+            
+            <span style="color:#a2f;font-weight:bold">for</span> <span style="color:#666">(</span><span style="color:#0b0;font-weight:bold">int</span> i <span style="color:#666">=</span> 1<span style="color:#666">;</span> i <span style="color:#666">&lt;=</span> n<span style="color:#666">;</span> i<span style="color:#666">++){</span>
+                res <span style="color:#666">=</span> Math<span style="color:#666">.</span><span style="color:#b44">max</span><span style="color:#666">(</span>res<span style="color:#666">,</span> <span style="color:#666">(</span><span style="color:#0b0;font-weight:bold">long</span><span style="color:#666">)</span> h<span style="color:#666">[</span>i<span style="color:#666">]</span> <span style="color:#666">*</span> <span style="color:#666">(</span>r<span style="color:#666">[</span>i<span style="color:#666">]</span> <span style="color:#666">-</span> l<span style="color:#666">[</span>i<span style="color:#666">]</span> <span style="color:#666">-</span> 1<span style="color:#666">));</span>
+            <span style="color:#666">}</span>
+
+            System<span style="color:#666">.</span><span style="color:#b44">out</span><span style="color:#666">.</span><span style="color:#b44">println</span><span style="color:#666">(</span>res<span style="color:#666">);</span> 	
+        <span style="color:#666">}</span>
     <span style="color:#666">}</span>
 
 <span style="color:#666">}</span>
