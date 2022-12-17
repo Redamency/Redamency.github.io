@@ -69,13 +69,13 @@ if (!doNotTrack) {
           ·
         </span>
         <span>
-          2310 words
+          3213 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          5 minute read
+          7 minute read
         </span>
     </div>
 
@@ -103,6 +103,11 @@ if (!doNotTrack) {
     <li><a href="#单调栈">单调栈</a>
       <ul>
         <li><a href="#直方图中最大的矩形">直方图中最大的矩形</a></li>
+      </ul>
+    </li>
+    <li><a href="#堆">堆</a>
+      <ul>
+        <li><a href="#序列">序列</a></li>
       </ul>
     </li>
   </ul>
@@ -371,6 +376,162 @@ if (!doNotTrack) {
             <span style="color:#666">}</span>
 
             System<span style="color:#666">.</span><span style="color:#b44">out</span><span style="color:#666">.</span><span style="color:#b44">println</span><span style="color:#666">(</span>res<span style="color:#666">);</span> 	
+        <span style="color:#666">}</span>
+    <span style="color:#666">}</span>
+
+<span style="color:#666">}</span>
+</code></pre></div><h2 id="堆">堆 <a href="#%e5%a0%86" class="anchor">🔗</a></h2><h3 id="序列">序列 <a href="#%e5%ba%8f%e5%88%97" class="anchor">🔗</a></h3><p>给定 m 个序列，每个包含 n 个非负整数。</p>
+<p>现在我们可以从每个序列中选择一个数字以形成具有 m 个整数的序列。</p>
+<p>很明显，我们一共可以得到 n^m个这种序列，然后我们可以计算每个序列中的数字之和，并得到 n^m 个值。</p>
+<p>现在请你求出这些序列和之中最小的 n 个值。</p>
+<h4 id="输入格式-3">输入格式 <a href="#%e8%be%93%e5%85%a5%e6%a0%bc%e5%bc%8f-3" class="anchor">🔗</a></h4><p>第一行输入一个整数 T，代表输入中包含测试用例的数量。</p>
+<p>接下来输入 T 组测试用例。</p>
+<p>对于每组测试用例，第一行输入两个整数 m 和 n。</p>
+<p>接下在 m 行输入 m 个整数序列，数列中的整数均不超过 10000。</p>
+<h4 id="输出格式-3">输出格式 <a href="#%e8%be%93%e5%87%ba%e6%a0%bc%e5%bc%8f-3" class="anchor">🔗</a></h4><p>对于每组测试用例，均以递增顺序输出最小的 n 个序列和，数值之间用空格隔开。</p>
+<p>每组输出占一行。</p>
+<h4 id="数据范围-3">数据范围 <a href="#%e6%95%b0%e6%8d%ae%e8%8c%83%e5%9b%b4-3" class="anchor">🔗</a></h4><p>0&lt;m≤1000,
+0&lt;n≤2000</p>
+<h4 id="输入样例-3">输入样例： <a href="#%e8%be%93%e5%85%a5%e6%a0%b7%e4%be%8b-3" class="anchor">🔗</a></h4><div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">1
+2 3
+1 2 3
+2 2 3
+</code></pre></div><h4 id="输出样例-3">输出样例： <a href="#%e8%be%93%e5%87%ba%e6%a0%b7%e4%be%8b-3" class="anchor">🔗</a></h4><div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">3 3 4
+</code></pre></div><h4 id="解析-3">解析 <a href="#%e8%a7%a3%e6%9e%90-3" class="anchor">🔗</a></h4><blockquote>
+<p>首先是维护顺序问题，需要用到堆</p>
+<p>其次是多组，分组思想</p>
+<p>以两组数据为例，合并为一组有序之后再与第三组合并，以此类推，进行m-1次合并，即可得到答案。</p>
+<p>两组数据如何维护和的最小值，可以通过两个指针分别指向两个有序数组，每次选取其中一个进行后移，在这需要考虑去重问题。</p>
+<p>但代码中的思想比较巧妙，不需要去重，值得深思。</p>
+</blockquote>
+<h4 id="代码-3">代码 <a href="#%e4%bb%a3%e7%a0%81-3" class="anchor">🔗</a></h4><div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#080;font-style:italic">/*
+</span><span style="color:#080;font-style:italic"> * Filename: d:\SHU\Acwing\cpp\heap\sequence.cpp
+</span><span style="color:#080;font-style:italic"> * Path: d:\SHU\Acwing\cpp\heap
+</span><span style="color:#080;font-style:italic"> * Created Date: Saturday, December 17th 2022, 12:36:01 pm
+</span><span style="color:#080;font-style:italic"> * Author: Young
+</span><span style="color:#080;font-style:italic"> * 
+</span><span style="color:#080;font-style:italic"> * Copyright (c) 2022 Your Company
+</span><span style="color:#080;font-style:italic"> */</span>
+<span style="color:#080">#include</span> <span style="color:#080">&lt;iostream&gt;</span><span style="color:#080">
+</span><span style="color:#080">#include</span> <span style="color:#080">&lt;cstring&gt;</span><span style="color:#080">
+</span><span style="color:#080">#include</span> <span style="color:#080">&lt;algorithm&gt;</span><span style="color:#080">
+</span><span style="color:#080">#include</span> <span style="color:#080">&lt;queue&gt;</span><span style="color:#080">
+</span><span style="color:#080">#include</span> <span style="color:#080">&lt;vector&gt;</span><span style="color:#080">
+</span><span style="color:#080"></span>
+<span style="color:#a2f;font-weight:bold">using</span> <span style="color:#a2f;font-weight:bold">namespace</span> std;
+
+<span style="color:#a2f;font-weight:bold">const</span> <span style="color:#0b0;font-weight:bold">int</span> N <span style="color:#666">=</span> <span style="color:#666">2e3</span><span style="color:#666">+</span><span style="color:#666">10</span>;
+<span style="color:#0b0;font-weight:bold">int</span> n,m;
+<span style="color:#0b0;font-weight:bold">int</span> a[N],b[N],c[N];
+<span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">merge</span>(){
+    priority_queue<span style="color:#666">&lt;</span>pair<span style="color:#666">&lt;</span><span style="color:#0b0;font-weight:bold">int</span>,<span style="color:#0b0;font-weight:bold">int</span><span style="color:#666">&gt;</span>,vector<span style="color:#666">&lt;</span>pair<span style="color:#666">&lt;</span><span style="color:#0b0;font-weight:bold">int</span>,<span style="color:#0b0;font-weight:bold">int</span><span style="color:#666">&gt;&gt;</span>,greater<span style="color:#666">&lt;</span>pair<span style="color:#666">&lt;</span><span style="color:#0b0;font-weight:bold">int</span>,<span style="color:#0b0;font-weight:bold">int</span><span style="color:#666">&gt;&gt;&gt;</span> heap;        <span style="color:#080;font-style:italic">//小顶堆
+</span><span style="color:#080;font-style:italic"></span>    <span style="color:#a2f;font-weight:bold">for</span> (<span style="color:#0b0;font-weight:bold">int</span> i <span style="color:#666">=</span> <span style="color:#666">0</span>; i <span style="color:#666">&lt;</span> n; i<span style="color:#666">++</span>) {
+        heap.push({a[<span style="color:#666">0</span>] <span style="color:#666">+</span> b[i],<span style="color:#666">0</span>});
+    }
+    <span style="color:#a2f;font-weight:bold">for</span> (<span style="color:#0b0;font-weight:bold">int</span> i <span style="color:#666">=</span> <span style="color:#666">0</span>; i <span style="color:#666">&lt;</span> n; i<span style="color:#666">++</span>) {
+        <span style="color:#a2f;font-weight:bold">auto</span> t <span style="color:#666">=</span> heap.top();
+        heap.pop();
+        <span style="color:#0b0;font-weight:bold">int</span> s <span style="color:#666">=</span> t.first, p <span style="color:#666">=</span> t.second;
+        c[i] <span style="color:#666">=</span> s;
+        heap.push({s <span style="color:#666">-</span> a[p] <span style="color:#666">+</span> a[p<span style="color:#666">+</span><span style="color:#666">1</span>],p<span style="color:#666">+</span><span style="color:#666">1</span>});
+    }
+    memcpy(a,c,<span style="color:#666">4</span><span style="color:#666">*</span>n);
+}
+<span style="color:#0b0;font-weight:bold">int</span> <span style="color:#00a000">main</span>(){
+    <span style="color:#0b0;font-weight:bold">int</span> t;
+    scanf(<span style="color:#b44">&#34;%d&#34;</span>,<span style="color:#666">&amp;</span>t);
+    <span style="color:#a2f;font-weight:bold">while</span> (t<span style="color:#666">--</span>){
+        scanf(<span style="color:#b44">&#34;%d%d&#34;</span>,<span style="color:#666">&amp;</span>m,<span style="color:#666">&amp;</span>n);
+        <span style="color:#a2f;font-weight:bold">for</span> (<span style="color:#0b0;font-weight:bold">int</span> i <span style="color:#666">=</span> <span style="color:#666">0</span>; i <span style="color:#666">&lt;</span> n; i<span style="color:#666">++</span>) {
+            cin <span style="color:#666">&gt;&gt;</span> a[i];
+        }
+        sort(a,a<span style="color:#666">+</span>n);
+        <span style="color:#a2f;font-weight:bold">for</span> (<span style="color:#0b0;font-weight:bold">int</span> i <span style="color:#666">=</span> <span style="color:#666">1</span>; i <span style="color:#666">&lt;</span> m; i<span style="color:#666">++</span>) {
+            <span style="color:#a2f;font-weight:bold">for</span> (<span style="color:#0b0;font-weight:bold">int</span> j <span style="color:#666">=</span> <span style="color:#666">0</span>; j <span style="color:#666">&lt;</span> n; j<span style="color:#666">++</span>) {
+                cin <span style="color:#666">&gt;&gt;</span> b[j];
+            }
+            merge();
+        }
+        <span style="color:#a2f;font-weight:bold">for</span> (<span style="color:#0b0;font-weight:bold">int</span> i <span style="color:#666">=</span> <span style="color:#666">0</span>; i <span style="color:#666">&lt;</span> n; i<span style="color:#666">++</span>) {
+            cout <span style="color:#666">&lt;&lt;</span> a[i] <span style="color:#666">&lt;&lt;</span> <span style="color:#b44">&#34; &#34;</span>; 
+        }
+        cout <span style="color:#666">&lt;&lt;</span> endl;
+    }
+    <span style="color:#a2f;font-weight:bold">return</span> <span style="color:#666">0</span>;
+}
+
+</code></pre></div><div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">
+<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">java.util.Arrays</span><span style="color:#666">;</span>
+<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">java.util.PriorityQueue</span><span style="color:#666">;</span>
+<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">java.util.Scanner</span><span style="color:#666">;</span>
+
+<span style="color:#080;font-style:italic">/**
+</span><span style="color:#080;font-style:italic"> * @fileName: sequence
+</span><span style="color:#080;font-style:italic"> * @author: Young
+</span><span style="color:#080;font-style:italic"> * @date: 2022/12/17 9:34
+</span><span style="color:#080;font-style:italic"> * @email: 1683209437@qq.com
+</span><span style="color:#080;font-style:italic"> */</span>
+<span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">class</span> <span style="color:#00f">Main</span> <span style="color:#666">{</span>
+    <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#a2f;font-weight:bold">final</span> <span style="color:#0b0;font-weight:bold">int</span> N <span style="color:#666">=</span> 2010<span style="color:#666">;</span>
+    <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#a2f;font-weight:bold">final</span> <span style="color:#0b0;font-weight:bold">int</span> M <span style="color:#666">=</span> 1010<span style="color:#666">;</span>
+    <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#0b0;font-weight:bold">int</span><span style="color:#666">[]</span> a<span style="color:#666">,</span>b<span style="color:#666">,</span>c<span style="color:#666">;</span>
+    <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#666">{</span>
+        a <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> <span style="color:#0b0;font-weight:bold">int</span><span style="color:#666">[</span>N<span style="color:#666">];</span>
+        b <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> <span style="color:#0b0;font-weight:bold">int</span><span style="color:#666">[</span>N<span style="color:#666">];</span>
+        c <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> <span style="color:#0b0;font-weight:bold">int</span><span style="color:#666">[</span>N<span style="color:#666">];</span>
+    <span style="color:#666">}</span>
+    <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#a2f;font-weight:bold">class</span> <span style="color:#00f">Node</span> <span style="color:#666">{</span>
+        <span style="color:#0b0;font-weight:bold">int</span> x<span style="color:#666">;</span>
+        <span style="color:#0b0;font-weight:bold">int</span> y<span style="color:#666">;</span>
+        <span style="color:#0b0;font-weight:bold">boolean</span> ok<span style="color:#666">;</span>
+
+        Node<span style="color:#666">(</span><span style="color:#0b0;font-weight:bold">int</span> x<span style="color:#666">,</span> <span style="color:#0b0;font-weight:bold">int</span> y<span style="color:#666">,</span> <span style="color:#0b0;font-weight:bold">boolean</span> ok<span style="color:#666">)</span> <span style="color:#666">{</span>
+            <span style="color:#a2f;font-weight:bold">this</span><span style="color:#666">.</span><span style="color:#b44">x</span> <span style="color:#666">=</span> x<span style="color:#666">;</span>
+            <span style="color:#a2f;font-weight:bold">this</span><span style="color:#666">.</span><span style="color:#b44">y</span> <span style="color:#666">=</span> y<span style="color:#666">;</span>
+            <span style="color:#a2f;font-weight:bold">this</span><span style="color:#666">.</span><span style="color:#b44">ok</span> <span style="color:#666">=</span> ok<span style="color:#666">;</span>
+        <span style="color:#666">}</span>
+
+        Node<span style="color:#666">(</span><span style="color:#0b0;font-weight:bold">int</span> x<span style="color:#666">,</span> <span style="color:#0b0;font-weight:bold">int</span> y<span style="color:#666">)</span> <span style="color:#666">{</span>
+            <span style="color:#a2f;font-weight:bold">this</span><span style="color:#666">.</span><span style="color:#b44">x</span> <span style="color:#666">=</span> x<span style="color:#666">;</span>
+            <span style="color:#a2f;font-weight:bold">this</span><span style="color:#666">.</span><span style="color:#b44">y</span> <span style="color:#666">=</span> y<span style="color:#666">;</span>
+        <span style="color:#666">}</span>
+    <span style="color:#666">}</span>
+
+    <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">merge</span><span style="color:#666">(</span><span style="color:#0b0;font-weight:bold">int</span> n<span style="color:#666">){</span>
+        PriorityQueue<span style="color:#666">&lt;</span>Node<span style="color:#666">&gt;</span> heap <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> PriorityQueue<span style="color:#666">&lt;&gt;(((</span>o1<span style="color:#666">,</span> o2<span style="color:#666">)</span> <span style="color:#666">-&gt;</span> o1<span style="color:#666">.</span><span style="color:#b44">x</span>  <span style="color:#666">-</span> o2<span style="color:#666">.</span><span style="color:#b44">x</span><span style="color:#666">));</span>    <span style="color:#080;font-style:italic">//小顶堆
+</span><span style="color:#080;font-style:italic"></span>        <span style="color:#a2f;font-weight:bold">for</span> <span style="color:#666">(</span><span style="color:#0b0;font-weight:bold">int</span> i <span style="color:#666">=</span> 1<span style="color:#666">;</span> i <span style="color:#666">&lt;=</span> n<span style="color:#666">;</span> i<span style="color:#666">++)</span> <span style="color:#666">{</span>
+            heap<span style="color:#666">.</span><span style="color:#b44">add</span><span style="color:#666">(</span><span style="color:#a2f;font-weight:bold">new</span> Node<span style="color:#666">(</span>a<span style="color:#666">[</span>1<span style="color:#666">]+</span>b<span style="color:#666">[</span>i<span style="color:#666">],</span>1<span style="color:#666">));</span>
+        <span style="color:#666">}</span>
+        <span style="color:#a2f;font-weight:bold">for</span> <span style="color:#666">(</span><span style="color:#0b0;font-weight:bold">int</span> i <span style="color:#666">=</span> 1<span style="color:#666">;</span> i <span style="color:#666">&lt;=</span> n<span style="color:#666">;</span> i<span style="color:#666">++)</span> <span style="color:#666">{</span>
+            Node node <span style="color:#666">=</span> heap<span style="color:#666">.</span><span style="color:#b44">poll</span><span style="color:#666">();</span>
+            <span style="color:#a2f;font-weight:bold">assert</span> node <span style="color:#666">!=</span> <span style="color:#a2f;font-weight:bold">null</span><span style="color:#666">;</span>
+            <span style="color:#0b0;font-weight:bold">int</span> s <span style="color:#666">=</span> node<span style="color:#666">.</span><span style="color:#b44">x</span><span style="color:#666">,</span> p <span style="color:#666">=</span> node<span style="color:#666">.</span><span style="color:#b44">y</span><span style="color:#666">;</span>
+            c<span style="color:#666">[</span>i<span style="color:#666">]</span> <span style="color:#666">=</span> s<span style="color:#666">;</span>
+            heap<span style="color:#666">.</span><span style="color:#b44">add</span><span style="color:#666">(</span><span style="color:#a2f;font-weight:bold">new</span> Node<span style="color:#666">(</span>s <span style="color:#666">-</span> a<span style="color:#666">[</span>p<span style="color:#666">]</span> <span style="color:#666">+</span> a<span style="color:#666">[</span>p<span style="color:#666">+</span>1<span style="color:#666">],</span> p<span style="color:#666">+</span>1<span style="color:#666">));</span>
+        <span style="color:#666">}</span>
+        System<span style="color:#666">.</span><span style="color:#b44">arraycopy</span><span style="color:#666">(</span>c<span style="color:#666">,</span>1<span style="color:#666">,</span>a<span style="color:#666">,</span>1<span style="color:#666">,</span>n<span style="color:#666">);</span>
+    <span style="color:#666">}</span>
+    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">main</span><span style="color:#666">(</span>String<span style="color:#666">[]</span> args<span style="color:#666">)</span> <span style="color:#666">{</span>
+        <span style="color:#0b0;font-weight:bold">int</span> n<span style="color:#666">,</span>m<span style="color:#666">,</span>t<span style="color:#666">;</span>
+        Scanner scanner <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> Scanner<span style="color:#666">(</span>System<span style="color:#666">.</span><span style="color:#b44">in</span><span style="color:#666">);</span>
+        t <span style="color:#666">=</span> scanner<span style="color:#666">.</span><span style="color:#b44">nextInt</span><span style="color:#666">();</span>
+        <span style="color:#a2f;font-weight:bold">while</span> <span style="color:#666">((</span>t<span style="color:#666">--)</span> <span style="color:#666">!=</span> 0<span style="color:#666">)</span> <span style="color:#666">{</span>
+            m <span style="color:#666">=</span> scanner<span style="color:#666">.</span><span style="color:#b44">nextInt</span><span style="color:#666">();</span>
+            n <span style="color:#666">=</span> scanner<span style="color:#666">.</span><span style="color:#b44">nextInt</span><span style="color:#666">();</span>
+            <span style="color:#a2f;font-weight:bold">for</span> <span style="color:#666">(</span><span style="color:#0b0;font-weight:bold">int</span> i <span style="color:#666">=</span> 1<span style="color:#666">;</span> i <span style="color:#666">&lt;=</span> n<span style="color:#666">;</span> i<span style="color:#666">++)</span> <span style="color:#666">{</span>
+                a<span style="color:#666">[</span>i<span style="color:#666">]</span> <span style="color:#666">=</span> scanner<span style="color:#666">.</span><span style="color:#b44">nextInt</span><span style="color:#666">();</span>
+            <span style="color:#666">}</span>
+            Arrays<span style="color:#666">.</span><span style="color:#b44">sort</span><span style="color:#666">(</span>a<span style="color:#666">,</span>1<span style="color:#666">,</span>n <span style="color:#666">+</span> 1<span style="color:#666">);</span>
+            <span style="color:#a2f;font-weight:bold">for</span> <span style="color:#666">(</span><span style="color:#0b0;font-weight:bold">int</span> i <span style="color:#666">=</span> 2<span style="color:#666">;</span> i <span style="color:#666">&lt;=</span> m<span style="color:#666">;</span> i<span style="color:#666">++)</span> <span style="color:#666">{</span>
+                <span style="color:#a2f;font-weight:bold">for</span> <span style="color:#666">(</span><span style="color:#0b0;font-weight:bold">int</span> j <span style="color:#666">=</span> 1<span style="color:#666">;</span> j <span style="color:#666">&lt;=</span> n<span style="color:#666">;</span> j<span style="color:#666">++)</span> <span style="color:#666">{</span>
+                    b<span style="color:#666">[</span>j<span style="color:#666">]</span> <span style="color:#666">=</span> scanner<span style="color:#666">.</span><span style="color:#b44">nextInt</span><span style="color:#666">();</span>
+                <span style="color:#666">}</span>
+                merge<span style="color:#666">(</span>n<span style="color:#666">);</span>
+            <span style="color:#666">}</span>
+            <span style="color:#a2f;font-weight:bold">for</span> <span style="color:#666">(</span><span style="color:#0b0;font-weight:bold">int</span> i <span style="color:#666">=</span> 1<span style="color:#666">;</span> i <span style="color:#666">&lt;=</span> n<span style="color:#666">;</span> i<span style="color:#666">++)</span> <span style="color:#666">{</span>
+                System<span style="color:#666">.</span><span style="color:#b44">out</span><span style="color:#666">.</span><span style="color:#b44">print</span><span style="color:#666">(</span>a<span style="color:#666">[</span>i<span style="color:#666">]</span> <span style="color:#666">+</span> <span style="color:#b44">&#34; &#34;</span><span style="color:#666">);</span>
+            <span style="color:#666">}</span>
+            System<span style="color:#666">.</span><span style="color:#b44">out</span><span style="color:#666">.</span><span style="color:#b44">println</span><span style="color:#666">();</span>
         <span style="color:#666">}</span>
     <span style="color:#666">}</span>
 
