@@ -69,13 +69,13 @@ if (!doNotTrack) {
           ·
         </span>
         <span>
-          1499 words
+          1750 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          3 minute read
+          4 minute read
         </span>
     </div>
 
@@ -103,6 +103,11 @@ if (!doNotTrack) {
       <ul>
         <li><a href="#前缀和单调队列862和至少为k的最短子数组862-和至少为-k-的最短子数组---力扣leetcodehttpsleetcodecnproblemsshortest-subarray-with-sum-at-least-k">前缀和+单调队列[862.和至少为k的最短子数组](<a href="https://leetcode.cn/problems/shortest-subarray-with-sum-at-least-k/">862. 和至少为 K 的最短子数组 - 力扣（LeetCode）</a>)</a></li>
         <li><a href="#染色体法-886-可能的二分法-httpsleetcodecnproblemspossible-bipartition">染色体法 <a href="https://leetcode.cn/problems/possible-bipartition/">886. 可能的二分法 </a></a></li>
+      </ul>
+    </li>
+    <li><a href="#dp">Dp</a>
+      <ul>
+        <li><a href="#鸡蛋掉落httpsleetcodecnproblemssuper-egg-drop"><a href="https://leetcode.cn/problems/super-egg-drop/">鸡蛋掉落</a></a></li>
       </ul>
     </li>
   </ul>
@@ -300,6 +305,56 @@ flag[<span style="color:#666">0</span>]<span style="color:#666">=</span>flag[<sp
         <span style="color:#a2f;font-weight:bold">return</span> <span style="color:#a2f;font-weight:bold">true</span><span style="color:#666">;</span>    
     <span style="color:#666">}</span>
 <span style="color:#666">}</span>
+</code></pre></div><h2 id="dp">Dp <a href="#dp" class="anchor">🔗</a></h2><h3 id="鸡蛋掉落httpsleetcodecnproblemssuper-egg-drop"><a href="https://leetcode.cn/problems/super-egg-drop/" target="_blank" rel="noopener">鸡蛋掉落</a> <a href="#%e9%b8%a1%e8%9b%8b%e6%8e%89%e8%90%bdhttpsleetcodecnproblemssuper-egg-drop" class="anchor">🔗</a></h3><div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#080;font-style:italic">//暴力dp O(kn^2)
+</span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">public</span> <span style="color:#0b0;font-weight:bold">int</span> <span style="color:#00a000">superEggDrop</span><span style="color:#666">(</span><span style="color:#0b0;font-weight:bold">int</span> k<span style="color:#666">,</span> <span style="color:#0b0;font-weight:bold">int</span> n<span style="color:#666">)</span> <span style="color:#666">{</span>
+        <span style="color:#0b0;font-weight:bold">int</span><span style="color:#666">[][]</span> dp <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> <span style="color:#0b0;font-weight:bold">int</span><span style="color:#666">[</span>k<span style="color:#666">+</span>1<span style="color:#666">][</span>n<span style="color:#666">+</span>1<span style="color:#666">];</span>
+        <span style="color:#a2f;font-weight:bold">for</span> <span style="color:#666">(</span><span style="color:#0b0;font-weight:bold">int</span> i <span style="color:#666">=</span> 1<span style="color:#666">;</span> i <span style="color:#666">&lt;=</span> n<span style="color:#666">;</span> <span style="color:#666">++</span>i<span style="color:#666">)</span>
+            dp<span style="color:#666">[</span>1<span style="color:#666">][</span>i<span style="color:#666">]</span> <span style="color:#666">=</span> i<span style="color:#666">;</span>           <span style="color:#080;font-style:italic">//1个蛋
+</span><span style="color:#080;font-style:italic"></span>        <span style="color:#a2f;font-weight:bold">for</span> <span style="color:#666">(</span><span style="color:#0b0;font-weight:bold">int</span> i <span style="color:#666">=</span> 1<span style="color:#666">;</span> i <span style="color:#666">&lt;=</span> k<span style="color:#666">;</span> <span style="color:#666">++</span>i<span style="color:#666">)</span>    
+            dp<span style="color:#666">[</span>i<span style="color:#666">][</span>1<span style="color:#666">]</span> <span style="color:#666">=</span> 1<span style="color:#666">;</span>           <span style="color:#080;font-style:italic">//1层楼
+</span><span style="color:#080;font-style:italic"></span>        <span style="color:#a2f;font-weight:bold">for</span> <span style="color:#666">(</span><span style="color:#0b0;font-weight:bold">int</span> i <span style="color:#666">=</span> 2<span style="color:#666">;</span> i <span style="color:#666">&lt;=</span> k<span style="color:#666">;</span> <span style="color:#666">++</span>i<span style="color:#666">)</span> <span style="color:#666">{</span>
+            <span style="color:#a2f;font-weight:bold">for</span> <span style="color:#666">(</span><span style="color:#0b0;font-weight:bold">int</span> j <span style="color:#666">=</span> 2<span style="color:#666">;</span> j <span style="color:#666">&lt;=</span> n<span style="color:#666">;</span> <span style="color:#666">++</span>j<span style="color:#666">)</span> <span style="color:#666">{</span>
+                <span style="color:#0b0;font-weight:bold">int</span> ans <span style="color:#666">=</span> 100<span style="color:#666">;</span>
+                <span style="color:#a2f;font-weight:bold">for</span> <span style="color:#666">(</span><span style="color:#0b0;font-weight:bold">int</span> v <span style="color:#666">=</span> 1<span style="color:#666">;</span> v <span style="color:#666">&lt;=</span> j<span style="color:#666">;</span> <span style="color:#666">++</span>v<span style="color:#666">)</span> <span style="color:#666">{</span>
+                    ans <span style="color:#666">=</span> Math<span style="color:#666">.</span><span style="color:#b44">min</span><span style="color:#666">(</span>ans<span style="color:#666">,</span> Math<span style="color:#666">.</span><span style="color:#b44">max</span><span style="color:#666">(</span>dp<span style="color:#666">[</span>i<span style="color:#666">-</span>1<span style="color:#666">][</span>v<span style="color:#666">-</span>1<span style="color:#666">],</span> dp<span style="color:#666">[</span>i<span style="color:#666">][</span>j<span style="color:#666">-</span>v<span style="color:#666">]));</span>
+                <span style="color:#666">}</span>
+                dp<span style="color:#666">[</span>i<span style="color:#666">][</span>j<span style="color:#666">]</span> <span style="color:#666">=</span> ans <span style="color:#666">+</span> 1<span style="color:#666">;</span>
+            <span style="color:#666">}</span>
+        <span style="color:#666">}</span>
+        <span style="color:#a2f;font-weight:bold">return</span> dp<span style="color:#666">[</span>k<span style="color:#666">][</span>n<span style="color:#666">];</span>
+    <span style="color:#666">}</span>
+<span style="color:#080;font-style:italic">//dp + 二分 (递归)
+</span><span style="color:#080;font-style:italic"></span>	Map<span style="color:#666">&lt;</span>Integer<span style="color:#666">,</span> Integer<span style="color:#666">&gt;</span> map <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> HashMap<span style="color:#666">&lt;&gt;();</span>
+    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#0b0;font-weight:bold">int</span> <span style="color:#00a000">superEggDrop</span><span style="color:#666">(</span><span style="color:#0b0;font-weight:bold">int</span> k<span style="color:#666">,</span> <span style="color:#0b0;font-weight:bold">int</span> n<span style="color:#666">)</span> <span style="color:#666">{</span>
+        <span style="color:#a2f;font-weight:bold">return</span> dp<span style="color:#666">(</span>k<span style="color:#666">,</span>n<span style="color:#666">);</span>
+    <span style="color:#666">}</span>
+    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#0b0;font-weight:bold">int</span> <span style="color:#00a000">dp</span><span style="color:#666">(</span><span style="color:#0b0;font-weight:bold">int</span> k<span style="color:#666">,</span> <span style="color:#0b0;font-weight:bold">int</span> n<span style="color:#666">)</span> <span style="color:#666">{</span>
+        <span style="color:#a2f;font-weight:bold">if</span> <span style="color:#666">(!</span>map<span style="color:#666">.</span><span style="color:#b44">containsKey</span><span style="color:#666">(</span>n <span style="color:#666">*</span> 100 <span style="color:#666">+</span> k<span style="color:#666">))</span> <span style="color:#666">{</span>
+            <span style="color:#0b0;font-weight:bold">int</span> ans <span style="color:#666">=</span> 0<span style="color:#666">;</span>
+            <span style="color:#a2f;font-weight:bold">if</span> <span style="color:#666">(</span>n <span style="color:#666">==</span> 0<span style="color:#666">)</span>
+                ans <span style="color:#666">=</span> 0<span style="color:#666">;</span>
+            <span style="color:#a2f;font-weight:bold">else</span> <span style="color:#a2f;font-weight:bold">if</span> <span style="color:#666">(</span>k <span style="color:#666">==</span> 1<span style="color:#666">){</span>
+                ans <span style="color:#666">=</span> n<span style="color:#666">;</span>    
+            <span style="color:#666">}</span> <span style="color:#a2f;font-weight:bold">else</span> <span style="color:#666">{</span>
+                <span style="color:#0b0;font-weight:bold">int</span> l <span style="color:#666">=</span> 1<span style="color:#666">,</span> r <span style="color:#666">=</span> n<span style="color:#666">;</span>
+                <span style="color:#a2f;font-weight:bold">while</span><span style="color:#666">(</span>l <span style="color:#666">+</span> 1 <span style="color:#666">&lt;</span> r<span style="color:#666">)</span> <span style="color:#666">{</span>
+                    <span style="color:#0b0;font-weight:bold">int</span> x <span style="color:#666">=</span> <span style="color:#666">(</span>l <span style="color:#666">+</span> r<span style="color:#666">)</span> <span style="color:#666">/</span> 2<span style="color:#666">;</span>
+                    <span style="color:#0b0;font-weight:bold">int</span> t1 <span style="color:#666">=</span> dp<span style="color:#666">(</span>k<span style="color:#666">-</span>1<span style="color:#666">,</span> x<span style="color:#666">-</span>1<span style="color:#666">);</span>
+                    <span style="color:#0b0;font-weight:bold">int</span> t2 <span style="color:#666">=</span> dp<span style="color:#666">(</span>k<span style="color:#666">,</span> n <span style="color:#666">-</span> x<span style="color:#666">);</span>
+                    <span style="color:#a2f;font-weight:bold">if</span> <span style="color:#666">(</span>t1 <span style="color:#666">&lt;</span> t2<span style="color:#666">)</span> <span style="color:#666">{</span>
+                        l <span style="color:#666">=</span> x<span style="color:#666">;</span>
+                    <span style="color:#666">}</span> <span style="color:#a2f;font-weight:bold">else</span> <span style="color:#a2f;font-weight:bold">if</span> <span style="color:#666">(</span>t1 <span style="color:#666">&gt;</span> t2<span style="color:#666">)</span>
+                        r <span style="color:#666">=</span> x<span style="color:#666">;</span>
+                    <span style="color:#a2f;font-weight:bold">else</span>
+                        l <span style="color:#666">=</span> r <span style="color:#666">=</span> x<span style="color:#666">;</span>
+                    
+                <span style="color:#666">}</span>
+                ans <span style="color:#666">=</span> 1 <span style="color:#666">+</span> Math<span style="color:#666">.</span><span style="color:#b44">min</span><span style="color:#666">(</span>Math<span style="color:#666">.</span><span style="color:#b44">max</span><span style="color:#666">(</span>dp<span style="color:#666">(</span>k<span style="color:#666">-</span>1<span style="color:#666">,</span>l<span style="color:#666">-</span>1<span style="color:#666">),</span> dp<span style="color:#666">(</span>k<span style="color:#666">,</span>n<span style="color:#666">-</span>l<span style="color:#666">)),</span> Math<span style="color:#666">.</span><span style="color:#b44">max</span><span style="color:#666">(</span>dp<span style="color:#666">(</span>k<span style="color:#666">-</span>1<span style="color:#666">,</span>r<span style="color:#666">-</span>1<span style="color:#666">),</span> dp<span style="color:#666">(</span>k<span style="color:#666">,</span> n<span style="color:#666">-</span>r<span style="color:#666">)));</span> 
+            <span style="color:#666">}</span>
+            map<span style="color:#666">.</span><span style="color:#b44">put</span><span style="color:#666">(</span>n <span style="color:#666">*</span> 100 <span style="color:#666">+</span> k<span style="color:#666">,</span> ans<span style="color:#666">);</span>
+        <span style="color:#666">}</span>
+        <span style="color:#a2f;font-weight:bold">return</span> map<span style="color:#666">.</span><span style="color:#b44">get</span><span style="color:#666">(</span>n <span style="color:#666">*</span> 100 <span style="color:#666">+</span> k<span style="color:#666">);</span>
+    <span style="color:#666">}</span>
 </code></pre></div>
     </div>
 
